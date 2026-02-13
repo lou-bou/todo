@@ -69,7 +69,7 @@ So in total, a todo class has:
 - status
 
 Now one last thing, for categories, what should they be? For the sake of simplicity and not overbloating this project, i'll make them predefined.
-There are 3 categories: Personal - Work - School
+There are a few categories: Personal - Work - School - Urgent - Short - Long
 You can choose one of these 3 projects only. On CLI, you do so by typing the category label (if its wrong itll throw an error and ask for new input), in DOM, there's no room for error as there'll be checkboxes for you to choose from.
 If you choose a category, it'll be added to the categories attribute (list).
 
@@ -78,6 +78,28 @@ In creation, whatever the list of chosen categories = the categories attribute
 In editing, whatever the list of chosen or unchosen categories 
             -> the categories list is modified (remove from list and add to list)
 
+We could also explicitly make the attribute a list, then in both cases just add/remove from the list
+
 In the beginning I'll make these functionalities only in the CLI, then create their DOM.
 
 Then do the same for additional functionalities.
+
+==================
+
+Create a task functionality:
+- Task class with attributes and constructor
+- Instantiate the class
+- If all works, git commit (without instance)
+- Add the object to localStorage
+- Retrieve object from localstorage and test method
+- Organize functions in the structures
+- Create categories to choose from (constraint so other categories cant be made)
+- Create functionality for user to add the task by themself through CLI
+- Create the last thing but in DOM
+
+persistence:
+1) setItem with stringify
+
+retrieval:
+1) getItem with parse
+2) create new task object (has methods but no attributes) and assign it retrieved object's attributes

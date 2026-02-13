@@ -7,15 +7,35 @@ class Task {
     constructor(title, categories) { // the categories parameter here must be implemented as an array
         this.id = crypto.randomUUID();
         this.title = title;
-        this.categories = addCategories(this.categories, categories);
+        this.categories = CategoriesManager.addCategories(this.categories, categories);
         this.status = 'pending';
     }
 }
 
-function addCategories(categorieslist, categories) {
-    for (let i = 0; i < categories.length; i++) {
-        categorieslist.push(categories[i]);
+class CategoriesManager { // utility class for handling categories
+    static addCategories(categorieslist, categories) {
+        if (categories) {
+            for (let i = 0; i < categories.length; i++) {
+                categorieslist.push(categories[i]);
+            }
+        }
+
+        return categorieslist;
+        
+    }
+}
+
+class PersistanceManager { // utility class for all localStorage related functions
+    static storeTask(task) {
+        const stringifiedTask = JSON.stringify(task); // at this point, the task object has lost all of its methods
+        localStorage.setItem(task.id, stringifiedTask);
     }
 
-    return categorieslist;
+    static retrieveTask(taskId) { // the retrieved task object doesn't have its methods, so we'll create a new task and assign its methods to the retrieved task object
+        const plainTaskObject = localStorage.getItem(taskId);
+        const parsedTask = JSON.parse(plainTaskObject);
+        const reconstructedTaskObject = new Task();
+        Object.assign(reconstructedTaskObject, parsedTask)
+        return reconstructedTaskObject
+    }
 }
