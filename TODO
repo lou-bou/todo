@@ -1,0 +1,14 @@
+
+Core functionality:
+  ☐ Create a task (title and categories)
+  ☐ Save task in localStorage
+  ☐ Edit a task (title and categories)
+  ☐ Delete a task (from localStorage)
+  ☐ Mark a task as completed (status)
+
+Additional Features:
+  ☐ Filter tasks by status (all, completed, pending)
+  ☐ Filter tasks by categories
+  ☐ Reorder tasks via drag-and-drop
+  ☐ Search for tasks by keywords
+  ☐ Dark/light mode
