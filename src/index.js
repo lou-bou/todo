@@ -35,7 +35,7 @@ class PersistanceManager { // utility class for all localStorage related functio
         const plainTaskObject = localStorage.getItem(taskId);
         const parsedTask = JSON.parse(plainTaskObject);
         const reconstructedTaskObject = new Task();
-        Object.assign(reconstructedTaskObject, parsedTask)
-        return reconstructedTaskObject
+        Object.assign(reconstructedTaskObject, parsedTask);
+        return reconstructedTaskObject;
     }
 }
