@@ -44,4 +44,17 @@ export class PersistanceManager { // utility class for all localStorage related 
         Object.assign(reconstructedTaskObject, parsedTask);
         return reconstructedTaskObject;
     }
+
+    static retrieveAllTasks() {
+        let tasks = [];
+        let task; // to use in iteration for each task in the list
+        const tasksIds = Object.keys(localStorage); // gets all localStorage keys (the tasks ids in this case)
+        
+        for (let i = 0; i < tasksIds.length; i++) {
+            task = this.retrieveTask(tasksIds[i]);
+            tasks.push(task);
+        }
+
+        return tasks;
+    }
 }

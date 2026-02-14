@@ -1,6 +1,16 @@
 import { Task, PersistanceManager } from './logic.js';
 
+function renderTasksDOM() {
+    const tasks = PersistanceManager.retrieveAllTasks();
+
+    for (let i = 0; i < tasks.length; i++) {
+        console.log(tasks[i]);
+        createTaskDOM(tasks[i]);
+    }
+}
+
 function createTaskDOM(taskObject) {
+    const tasksContainer = document.querySelector('#tasks');
     const taskContainer = document.createElement('div');
     const taskTitle = document.createElement('span');
 
@@ -28,10 +38,11 @@ function handleFormData(form) {
     return {title, categories};
 }
 
+renderTasksDOM(); // gets called each time the page is loaded
+
 const addTaskButton = document.querySelector('#add-task-button');
 const addTaskDialog = document.querySelector('#add-task-dialog');
 const addTaskForm = document.querySelector('#add-task-form');
-const tasksContainer = document.querySelector('#tasks');
 
 addTaskButton.addEventListener('click', () => {
     addTaskDialog.showModal();
