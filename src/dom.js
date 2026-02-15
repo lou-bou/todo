@@ -31,14 +31,60 @@ function createTaskDOM(taskObject) {
     const taskTitle = document.createElement('span');
     const taskEditButton = document.createElement('button');
 
+    taskContainer.setAttribute('data-task-id', taskObject.id);
+
     taskTitle.innerText = taskObject.title;
+    taskTitle.setAttribute('class', 'task-title');
+
     taskEditButton.innerText = 'Edit';
     taskEditButton.setAttribute('class', 'edit-task-button');
     taskEditButton.setAttribute('data-task-id', taskObject.id);
 
     taskContainer.appendChild(taskTitle);
+
+    let taskCategory;
+
+    for (const category of taskObject.categories) {
+        taskCategory = document.createElement('span');
+        taskCategory.innerText = category;
+        taskCategory.style.color = 'green';
+        taskCategory.style.weight = 'none';
+        taskCategory.setAttribute('class', 'task-category');
+        taskContainer.appendChild(taskCategory);
+    }
+
     taskContainer.appendChild(taskEditButton);
+
     tasksContainer.appendChild(taskContainer);
+}
+
+function editTaskDOM(taskObject, taskContainer) {
+    const taskTitle = document.createElement('span');
+    const taskEditButton = document.createElement('button');
+
+    taskContainer.setAttribute('data-task-id', taskObject.id);
+
+    taskTitle.innerText = taskObject.title;
+    taskTitle.setAttribute('class', 'task-title');
+
+    taskEditButton.innerText = 'Edit';
+    taskEditButton.setAttribute('class', 'edit-task-button');
+    taskEditButton.setAttribute('data-task-id', taskObject.id);
+
+    taskContainer.appendChild(taskTitle);
+
+    let taskCategory;
+
+    for (const category of taskObject.categories) {
+        taskCategory = document.createElement('span');
+        taskCategory.innerText = category;
+        taskCategory.style.color = 'green';
+        taskCategory.style.weight = 'none';
+        taskCategory.setAttribute('class', 'task-category');
+        taskContainer.appendChild(taskCategory);
+    }
+
+    taskContainer.appendChild(taskEditButton);
 }
 
 function handleFormData(form) {
@@ -97,13 +143,18 @@ let editTaskButtons; // these buttons may not exist if no tasks are created yet
 if (document.querySelector('.edit-task-button')) {
     editTaskButtons = document.querySelectorAll('.edit-task-button');
 }
+let taskObject;
+let taskContainer;
 
 editTaskButtons.forEach((editTaskButton) => {
     editTaskButton.addEventListener('click', () => {
         editTaskDialog.showModal();
 
         const taskId = editTaskButton.getAttribute('data-task-id');
-        const taskObject = PersistanceManager.retrieveTask(taskId);
+
+        taskContainer = document.querySelector(`div[data-task-id='${taskId}']`);
+
+        taskObject = PersistanceManager.retrieveTask(taskId);
 
         editTaskForm.title.value = taskObject.title;
 
@@ -119,6 +170,24 @@ editTaskButtons.forEach((editTaskButton) => {
 editTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    taskObject.title = editTaskForm.title.value;
+    taskObject.categories = [];
+
+    const checkboxes = document.querySelectorAll('.edit-checkbox');
+
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            taskObject.categories.push(checkbox.name);
+        }
+    });
+
+    PersistanceManager.storeTask(taskObject);
+
+    taskContainer.innerHTML = '';
+
+    editTaskDOM(taskObject, taskContainer);
+
     clearForm(editTaskForm);
+
     editTaskDialog.close();
 });
