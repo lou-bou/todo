@@ -13,7 +13,7 @@ function clearForms() {
     
     forms.forEach((form) => {
         clearForm(form);
-    })
+    });
 }
 
 function clearForm(form) {
@@ -25,39 +25,22 @@ function clearForm(form) {
     form.Optional.checked = false;
 }
 
-function createTaskDOM(taskObject) {
-    const tasksContainer = document.querySelector('#tasks');
+function createTaskContainerDOM(taskObject) {
     const taskContainer = document.createElement('div');
-    const taskTitle = document.createElement('span');
-    const taskEditButton = document.createElement('button');
-
     taskContainer.setAttribute('data-task-id', taskObject.id);
+
+    return taskContainer;
+}
+
+function createTaskTitleDOM(taskObject, taskContainer) {
+    const taskTitle = document.createElement('span');
 
     taskTitle.innerText = taskObject.title;
     taskTitle.setAttribute('class', 'task-title');
 
-    taskEditButton.innerText = 'Edit';
-    taskEditButton.setAttribute('class', 'edit-task-button');
-    taskEditButton.setAttribute('data-task-id', taskObject.id);
-
     taskContainer.appendChild(taskTitle);
 
-    let taskCategory;
-
-    for (const category of taskObject.categories) {
-        taskCategory = document.createElement('span');
-        taskCategory.innerText = category;
-        taskCategory.style.color = 'green';
-        taskCategory.style.weight = 'none';
-        taskCategory.setAttribute('class', 'task-category');
-        taskContainer.appendChild(taskCategory);
-    }
-
-    taskContainer.appendChild(taskEditButton);
-
-    tasksContainer.appendChild(taskContainer);
-
-    createTaskEditButtonEventListener(taskObject, taskEditButton);
+    return taskTitle;
 }
 
 function createTaskEditButtonEventListener(taskObject, taskEditButton) {
@@ -79,22 +62,22 @@ function createTaskEditButtonEventListener(taskObject, taskEditButton) {
     });
 }
 
-function editTaskDOM(taskObject, taskContainer) {
-    const taskTitle = document.createElement('span');
+function createTaskEditButtonDOM(taskObject, taskContainer) {
     const taskEditButton = document.createElement('button');
-
-    taskContainer.setAttribute('data-task-id', taskObject.id);
-
-    taskTitle.innerText = taskObject.title;
-    taskTitle.setAttribute('class', 'task-title');
 
     taskEditButton.innerText = 'Edit';
     taskEditButton.setAttribute('class', 'edit-task-button');
     taskEditButton.setAttribute('data-task-id', taskObject.id);
 
-    taskContainer.appendChild(taskTitle);
+    taskContainer.appendChild(taskEditButton);
 
-    let taskCategory;
+    createTaskEditButtonEventListener(taskObject, taskEditButton);
+
+    return taskEditButton;
+}
+
+function createTaskCategoriesDOM(taskObject, taskContainer) {
+    let taskCategory; // used for iteration
 
     for (const category of taskObject.categories) {
         taskCategory = document.createElement('span');
@@ -102,12 +85,36 @@ function editTaskDOM(taskObject, taskContainer) {
         taskCategory.style.color = 'green';
         taskCategory.style.weight = 'none';
         taskCategory.setAttribute('class', 'task-category');
+
         taskContainer.appendChild(taskCategory);
     }
 
-    taskContainer.appendChild(taskEditButton);
+    return taskObject.categories; // taskCategory and a category in taskObject.categories are the same lol
+}
 
-    createTaskEditButtonEventListener(taskObject, taskEditButton);
+function createTaskDOM(taskObject) {
+    const tasksContainer = document.querySelector('#tasks');
+
+    const taskContainer = createTaskContainerDOM(taskObject);
+    
+    const taskTitle = createTaskTitleDOM(taskObject, taskContainer);
+
+    const taskCategories = createTaskCategoriesDOM(taskObject, taskContainer);
+
+    const taskEditButton = createTaskEditButtonDOM(taskObject, taskContainer);
+
+    tasksContainer.appendChild(taskContainer);
+}
+
+// the only difference between this function and createTaskDOM is that the latter creates and appends taskContainer to tasksContainer, but this one doesn't because the taskContainer already exists.
+function editTaskDOM(taskObject, taskContainer) {
+    taskContainer.setAttribute('data-task-id', taskObject.id);
+    
+    createTaskTitleDOM(taskObject, taskContainer);
+
+    createTaskCategoriesDOM(taskObject, taskContainer);
+
+    createTaskEditButtonDOM(taskObject, taskContainer);
 }
 
 function handleFormData(form) {
@@ -117,11 +124,11 @@ function handleFormData(form) {
     let categories = [];
 
     for (var pair of formData.entries()) {
-        // the html form has a title input and categories inputs, it checks if the pair is for the title input (the first one)
+        // the html form has a title input and categories inputs, the first pair is the title input
         if (pair[0] == 'title') { 
             title = pair[1];
         } else {
-            // the categories selected will have pair[1] = on, and only the selected categories will be iterated.
+            // only the checked categories will be in this iterator, and they have pair[1] = 'on'
             categories.push(pair[0]); 
         }
     }
@@ -169,6 +176,8 @@ addTaskForm.addEventListener('submit', (e) => {
 const editTaskDialog = document.querySelector('#edit-task-dialog');
 const editTaskForm = document.querySelector('#edit-task-form');
 
+// there are many edit task buttons, one for each task, so their event listeners are created with their tasks' DOM elements.
+
 editTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -191,9 +200,9 @@ editTaskForm.addEventListener('submit', (e) => {
 
     PersistanceManager.storeTask(taskObject);
 
-    taskContainer.innerHTML = '';
+    taskContainer.innerHTML = ''; // deconstruct the current task's DOM
 
-    editTaskDOM(taskObject, taskContainer);
+    editTaskDOM(taskObject, taskContainer); // reconstruct it
 
     clearForm(editTaskForm);
 
