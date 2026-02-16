@@ -56,6 +56,27 @@ function createTaskDOM(taskObject) {
     taskContainer.appendChild(taskEditButton);
 
     tasksContainer.appendChild(taskContainer);
+
+    createTaskEditButtonEventListener(taskObject, taskEditButton);
+}
+
+function createTaskEditButtonEventListener(taskObject, taskEditButton) {
+    const editTaskDialog = document.querySelector('#edit-task-dialog');
+    const editTaskForm = document.querySelector('#edit-task-form');
+
+    taskEditButton.addEventListener('click', () => {
+        editTaskDialog.showModal();
+
+        editTaskForm.setAttribute('data-task-id', taskObject.id);
+        editTaskForm.title.value = taskObject.title;
+
+        let editTaskCheckbox; // used to assign each category value looped through
+        
+        for (let i = 0; i < taskObject.categories.length; i++) {
+            editTaskCheckbox = document.querySelector(`#edit-${taskObject.categories[i]}`);
+            editTaskCheckbox.checked = true;
+        }
+    });
 }
 
 function editTaskDOM(taskObject, taskContainer) {
@@ -85,6 +106,8 @@ function editTaskDOM(taskObject, taskContainer) {
     }
 
     taskContainer.appendChild(taskEditButton);
+
+    createTaskEditButtonEventListener(taskObject, taskEditButton);
 }
 
 function handleFormData(form) {
@@ -145,36 +168,15 @@ addTaskForm.addEventListener('submit', (e) => {
 // editing a task
 const editTaskDialog = document.querySelector('#edit-task-dialog');
 const editTaskForm = document.querySelector('#edit-task-form');
-let editTaskButtons; // these buttons may not exist if no tasks are created yet
-if (document.querySelector('.edit-task-button')) {
-    editTaskButtons = document.querySelectorAll('.edit-task-button');
-}
-let taskObject;
-let taskContainer;
-
-editTaskButtons.forEach((editTaskButton) => {
-    editTaskButton.addEventListener('click', () => {
-        editTaskDialog.showModal();
-
-        const taskId = editTaskButton.getAttribute('data-task-id');
-
-        taskContainer = document.querySelector(`div[data-task-id='${taskId}']`);
-
-        taskObject = PersistanceManager.retrieveTask(taskId);
-
-        editTaskForm.title.value = taskObject.title;
-
-        let editTaskCheckbox; // used to assign each category value looped through
-        
-        for (let i = 0; i < taskObject.categories.length; i++) {
-            editTaskCheckbox = document.querySelector(`#edit-${taskObject.categories[i]}`);
-            editTaskCheckbox.checked = true;
-        }
-    });
-});
 
 editTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    const taskId = editTaskForm.getAttribute('data-task-id');
+
+    const taskObject = PersistanceManager.retrieveTask(taskId);
+
+    const taskContainer = document.querySelector(`div[data-task-id='${taskId}']`);
 
     taskObject.title = editTaskForm.title.value;
     taskObject.categories = [];
