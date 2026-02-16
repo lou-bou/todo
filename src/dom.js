@@ -109,6 +109,12 @@ function handleFormData(form) {
 renderTasksDOM(); // gets called each time the page is loaded to display all tasks in localStorage
 clearForms(); // gets called each time the page is loaded to clear all forms from old values
 
+// this handles pressing escape on a dialog form. Without it, the form would still have the old values.
+document.addEventListener('keydown', (e) => {
+    if (e.key == 'Escape') {
+        clearForms();
+    }
+});
 
 // adding a task
 
