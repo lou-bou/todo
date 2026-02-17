@@ -26,6 +26,22 @@ function createTaskTitleDOM(taskObject, taskContainer) {
     return taskTitle;
 }
 
+function createTaskCategoriesDOM(taskObject, taskContainer) {
+    let taskCategory; // used for iteration
+
+    for (const category of taskObject.categories) {
+        taskCategory = document.createElement('span');
+        taskCategory.innerText = category;
+        taskCategory.style.color = 'green';
+        taskCategory.style.weight = 'none';
+        taskCategory.setAttribute('class', 'task-category');
+
+        taskContainer.appendChild(taskCategory);
+    }
+
+    return taskObject.categories; // taskCategory and a category in taskObject.categories are the same lol
+}
+
 function createTaskEditButtonDOM(taskObject, taskContainer) {
     const taskEditButton = document.createElement('button');
 
@@ -68,7 +84,7 @@ function createTaskDeleteButtonDOM(taskObject, taskContainer) {
 
     taskContainer.appendChild(taskDeleteButton);
 
-    createTaskDeleteButtonEventListener(taskObject, taskContainer);
+    createTaskDeleteButtonEventListener(taskObject, taskDeleteButton);
 
     return taskDeleteButton;
 }
@@ -84,24 +100,39 @@ function createTaskDeleteButtonEventListener(taskObject, taskDeleteButton) {
     });
 }
 
-function createTaskCategoriesDOM(taskObject, taskContainer) {
-    let taskCategory; // used for iteration
+function createTaskStatusButtonDOM(taskObject, taskContainer) {
+    const taskStatusButton = document.createElement('button');
 
-    for (const category of taskObject.categories) {
-        taskCategory = document.createElement('span');
-        taskCategory.innerText = category;
-        taskCategory.style.color = 'green';
-        taskCategory.style.weight = 'none';
-        taskCategory.setAttribute('class', 'task-category');
+    taskStatusButton.innerText = taskObject.status;
+    taskStatusButton.setAttribute('class', 'status-task-button');
+    taskStatusButton.setAttribute('data-task-id', taskObject.id);
 
-        taskContainer.appendChild(taskCategory);
-    }
+    taskContainer.appendChild(taskStatusButton);
 
-    return taskObject.categories; // taskCategory and a category in taskObject.categories are the same lol
+    createTaskStatusButtonEventListener(taskObject, taskStatusButton);
+
+    return taskStatusButton;
+}
+
+function createTaskStatusButtonEventListener(taskObject, taskStatusButton) {
+    taskStatusButton.addEventListener('click', () => {
+        if (taskObject.status == 'completed') {
+            taskObject.status = 'pending';
+        } else if (taskObject.status == 'pending') {
+            taskObject.status = 'completed';
+        }
+        
+        PersistanceManager.storeTask(taskObject);
+
+        taskStatusButton.innerText = taskObject.status;
+    });
 }
 
 function createTaskDOMElements(taskObject, taskContainer) {
     // these three DOM elements aren't really used so there's no need for their respective functions to return them but just in case yknow for potential future updates
+
+    const taskStatusButton = createTaskStatusButtonDOM(taskObject, taskContainer);
+
     const taskTitle = createTaskTitleDOM(taskObject, taskContainer);
 
     const taskCategories = createTaskCategoriesDOM(taskObject, taskContainer);
@@ -110,7 +141,7 @@ function createTaskDOMElements(taskObject, taskContainer) {
 
     const taskDeleteButton = createTaskDeleteButtonDOM(taskObject, taskContainer);
 
-    return { taskTitle, taskCategories, taskEditButton, taskDeleteButton };
+    return { taskStatusButton, taskTitle, taskCategories, taskEditButton, taskDeleteButton };
 }
 
 export function createTaskDOM(taskObject) {
@@ -118,7 +149,7 @@ export function createTaskDOM(taskObject) {
 
     const taskContainer = createTaskContainerDOM(taskObject);
     
-    const { taskTitle, taskCategories, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
+    const { taskStatusButton, taskTitle, taskCategories, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
 
     tasksContainer.appendChild(taskContainer);
 }
