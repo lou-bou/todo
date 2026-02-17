@@ -75,8 +75,12 @@ function createTaskDeleteButtonDOM(taskObject, taskContainer) {
 
 function createTaskDeleteButtonEventListener(taskObject, taskDeleteButton) {
     taskDeleteButton.addEventListener('click', () => {
-        // delete task object from localStorage
-        // delete task DOM
+        PersistanceManager.deleteTask(taskObject.id);
+
+        const tasksContainer = document.querySelector('#tasks');
+        const taskContainer = document.querySelector(`div[data-task-id='${taskObject.id}']`);
+
+        tasksContainer.removeChild(taskContainer);
     });
 }
 

@@ -37,7 +37,7 @@ export class PersistanceManager { // utility class for all localStorage related 
         localStorage.setItem(task.id, stringifiedTask);
     }
 
-    static retrieveTask(taskId) { // the retrieved task object doesn't have its methods, so we'll create a new task and assign its methods to the retrieved task object
+    static retrieveTask(taskId) { // the retrieved task object doesn't have its methods, so this creates a new task and assigns its methods to the retrieved task object
         const plainTaskObject = localStorage.getItem(taskId);
         const parsedTask = JSON.parse(plainTaskObject);
         const reconstructedTaskObject = new Task();
@@ -56,5 +56,9 @@ export class PersistanceManager { // utility class for all localStorage related 
         }
 
         return tasks;
+    }
+
+    static deleteTask(taskId) {
+        localStorage.removeItem(taskId);
     }
 }
