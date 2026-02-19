@@ -100,15 +100,6 @@ function createTaskDeleteButtonEventListener(taskObject, taskDeleteButton) {
     });
 }
 
-function changeTaskStatus(taskObject) {
-    // this swaps the current status to its opposite
-    if (taskObject.status == 'pending') {
-        return 'completed';
-    } else {
-        return 'pending';
-    }
-}
-
 function setTaskStatusButtonColorDOM(taskObject) {
     // this doesnt swap, just returns the corresponding style for each status
     if (taskObject.status == 'pending') {
