@@ -16,7 +16,7 @@ export function createTaskDeleteButtonDOM(taskObject, taskContainer) {
 
 function createTaskDeleteButtonEventListener(taskObject, taskDeleteButton) {
     taskDeleteButton.addEventListener('click', () => {
-        PersistanceManager.deleteTask(taskObject.id);
+        taskObject.delete();
 
         const tasksContainer = document.querySelector('#tasks');
         const taskContainer = document.querySelector(`div[data-task-id='${taskObject.id}']`);
