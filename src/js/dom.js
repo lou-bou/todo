@@ -2,7 +2,7 @@
 
 import { Task, PersistanceManager } from './logic.js';
 import { clearForm, clearForms, handleFormData } from './formsHandling.js';
-import { renderTasksDOM, createTaskDOM, editTaskDOM } from './taskDOM.js';
+import { renderTasksDOM, createTaskDOM, editTaskDOM } from './task_DOM/taskDOM.js';
 
 renderTasksDOM(); // gets called each time the page is loaded to display all tasks in localStorage
 clearForms(); // gets called each time the page is loaded to clear all forms from old values
