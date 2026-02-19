@@ -10,6 +10,16 @@ export class Task {
         this.categories = CategoriesManager.addCategories(this.categories, categories);
         this.status = 'pending';
     }
+
+    switchStatus() {
+        if (this.status == 'pending') {
+            this.status = 'completed';
+        } else {
+            this.status = 'pending';
+        }
+
+        PersistanceManager.storeTask(this);
+    }
 }
 
 class CategoriesManager { // class for handling categories

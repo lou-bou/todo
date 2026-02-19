@@ -135,9 +135,7 @@ function createTaskStatusButtonDOM(taskObject, taskContainer) {
 
 function createTaskStatusButtonEventListener(taskObject, taskStatusButton) {
     taskStatusButton.addEventListener('click', () => {
-        taskObject.status = changeTaskStatus(taskObject);
-        
-        PersistanceManager.storeTask(taskObject);
+        taskObject.switchStatus();
 
         taskStatusButton.style.backgroundColor = setTaskStatusButtonColorDOM(taskObject);
     });
