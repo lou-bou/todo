@@ -24,6 +24,10 @@ export class Task {
     delete() {
         PersistanceManager.deleteTask(this.id);
     }
+
+    store() {
+        PersistanceManager.storeTask(this);
+    }
 }
 
 class CategoriesManager { // class for handling categories

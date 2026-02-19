@@ -31,7 +31,7 @@ addTaskForm.addEventListener('submit', (e) => {
 
     // this is logic stuff not supposed to be in dom, be careful with future imports to avoid circular dependencies
     const task = new Task(title, categories);
-    PersistanceManager.storeTask(task);
+    task.store();
 
     createTaskDOM(task);
 
@@ -66,7 +66,7 @@ editTaskForm.addEventListener('submit', (e) => {
         }
     });
 
-    PersistanceManager.storeTask(taskObject);
+    taskObject.store();
 
     taskContainer.innerHTML = ''; // deconstruct the current task's DOM
 

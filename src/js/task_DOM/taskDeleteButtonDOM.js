@@ -1,5 +1,3 @@
-import { PersistanceManager } from "../logic.js";
-
 export function createTaskDeleteButtonDOM(taskObject, taskContainer) {
     const taskDeleteButton = document.createElement('button');
 
