@@ -7,7 +7,7 @@ import { renderTasksDOM, createTaskDOM, editTaskDOM } from './task_DOM/taskDOM.j
 renderTasksDOM(); // gets called each time the page is loaded to display all tasks in localStorage
 clearForms(); // gets called each time the page is loaded to clear all forms from old values
 
-// this handles pressing escape on a dialog form. Without it, the form would still have the old values.
+// this handles pressing escape on a dialog form. Without it, the form would still have the values from the previous task
 document.addEventListener('keydown', (e) => {
     if (e.key == 'Escape') {
         clearForms();
@@ -27,13 +27,13 @@ addTaskButton.addEventListener('click', () => {
 addTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const {title, categories} = handleFormData(addTaskForm);
+    const { taskTitle, taskCategories } = handleFormData(addTaskForm);
 
     // this is logic stuff not supposed to be in dom, be careful with future imports to avoid circular dependencies
-    const task = new Task(title, categories);
-    task.store();
+    const taskObject = new Task(taskTitle, taskCategories);
+    taskObject.store();
 
-    createTaskDOM(task);
+    createTaskDOM(taskObject);
 
     clearForm(addTaskForm);
 
@@ -49,20 +49,20 @@ const editTaskForm = document.querySelector('#edit-task-form');
 editTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const taskId = editTaskForm.getAttribute('data-task-id');
+    const taskObjectId = editTaskForm.getAttribute('data-task-id');
 
-    const taskObject = PersistanceManager.retrieveTask(taskId);
+    const taskObject = PersistanceManager.retrieveTask(taskObjectId);
 
-    const taskContainer = document.querySelector(`div[data-task-id='${taskId}']`);
+    const taskContainer = document.querySelector(`div[data-task-id='${taskObjectId}']`);
 
     taskObject.title = editTaskForm.title.value;
     taskObject.categories = [];
 
-    const checkboxes = document.querySelectorAll('.edit-checkbox');
+    const taskCategoriesCheckboxes = document.querySelectorAll('.edit-checkbox');
 
-    checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-            taskObject.categories.push(checkbox.name);
+    taskCategoriesCheckboxes.forEach((taskCategoryCheckbox) => {
+        if (taskCategoryCheckbox.checked) {
+            taskObject.categories.push(taskCategoryCheckbox.name);
         }
     });
 

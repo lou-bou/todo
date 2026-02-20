@@ -22,11 +22,11 @@ function createTaskEditButtonEventListener(taskObject, taskEditButton) {
         editTaskForm.setAttribute('data-task-id', taskObject.id);
         editTaskForm.title.value = taskObject.title;
 
-        let editTaskCheckbox; // used to assign each category value looped through
+        let editTaskCategoryCheckbox; // used to assign each category value looped through
         
-        for (let i = 0; i < taskObject.categories.length; i++) {
-            editTaskCheckbox = document.querySelector(`#edit-${taskObject.categories[i]}`);
-            editTaskCheckbox.checked = true;
+        for (const taskObjectCategory of taskObject.categories) {
+            editTaskCategoryCheckbox = document.querySelector(`#edit-${taskObjectCategory}`);
+            editTaskCategoryCheckbox.checked = true;
         }
     });
 }

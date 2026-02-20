@@ -16,7 +16,7 @@ function createTaskDeleteButtonEventListener(taskObject, taskDeleteButton) {
     taskDeleteButton.addEventListener('click', () => {
         taskObject.delete();
 
-        const tasksContainer = document.querySelector('#tasks');
+        const tasksContainer = document.querySelector('#tasks-container');
         const taskContainer = document.querySelector(`div[data-task-id='${taskObject.id}']`);
 
         tasksContainer.removeChild(taskContainer);

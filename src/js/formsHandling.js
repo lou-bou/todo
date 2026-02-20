@@ -18,18 +18,18 @@ export function clearForm(form) {
 export function handleFormData(form) {
     let formData = new FormData(form);
 
-    let title;
-    let categories = [];
+    let taskTitle;
+    let taskCategories = [];
 
     for (var pair of formData.entries()) {
         // the html form has a title input and categories inputs, the first pair is the title input
         if (pair[0] == 'title') { 
-            title = pair[1];
+            taskTitle = pair[1];
         } else {
             // only the checked categories will be in this iterator, and they have pair[1] = 'on'
-            categories.push(pair[0]); 
+            taskCategories.push(pair[0]); 
         }
     }
 
-    return {title, categories};
+    return {taskTitle, taskCategories};
 }

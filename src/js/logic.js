@@ -50,33 +50,33 @@ class CategoriesManager { // class for handling categories
 }
 
 export class PersistanceManager { // utility class for all localStorage related functions
-    static storeTask(task) {
-        const stringifiedTask = JSON.stringify(task); // at this point, the task object has lost all of its methods
-        localStorage.setItem(task.id, stringifiedTask);
+    static storeTask(taskObject) {
+        const stringifiedTask = JSON.stringify(taskObject); // at this point, the task object has lost all of its methods
+        localStorage.setItem(taskObject.id, stringifiedTask);
     }
 
-    static retrieveTask(taskId) { // the retrieved task object doesn't have its methods, so this creates a new task and assigns its methods to the retrieved task object
-        const plainTaskObject = localStorage.getItem(taskId);
-        const parsedTask = JSON.parse(plainTaskObject);
+    static retrieveTask(taskObjectId) { // the retrieved task object doesn't have its methods, so this creates a new task and assigns its methods to the retrieved task object
+        const plainTaskObject = localStorage.getItem(taskObjectId);
+        const parsedTaskObject = JSON.parse(plainTaskObject);
         const reconstructedTaskObject = new Task();
-        Object.assign(reconstructedTaskObject, parsedTask);
+        Object.assign(reconstructedTaskObject, parsedTaskObject);
         return reconstructedTaskObject;
     }
 
     static retrieveAllTasks() {
-        let tasks = [];
-        let task; // to use in iteration for each task in the list
-        const tasksIds = Object.keys(localStorage); // gets all localStorage keys (the tasks ids in this case)
+        let taskObjects = [];
+        let taskObject; // to use in iteration for each task in the list
+        const taskObjectIds = Object.keys(localStorage); // gets all localStorage keys (the tasks ids in this case)
         
-        for (let i = 0; i < tasksIds.length; i++) {
-            task = this.retrieveTask(tasksIds[i]);
-            tasks.push(task);
+        for (let i = 0; i < taskObjectIds.length; i++) {
+            taskObject = this.retrieveTask(taskObjectIds[i]);
+            taskObjects.push(taskObject);
         }
 
-        return tasks;
+        return taskObjects;
     }
 
-    static deleteTask(taskId) {
-        localStorage.removeItem(taskId);
+    static deleteTask(taskObjectId) {
+        localStorage.removeItem(taskObjectId);
     }
 }

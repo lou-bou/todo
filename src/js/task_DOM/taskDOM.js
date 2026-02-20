@@ -7,40 +7,40 @@ import { createTaskStatusButtonDOM } from './taskStatusButtonDOM.js';
 export { renderTasksDOM, createTaskDOM, editTaskDOM }
 
 function renderTasksDOM() {
-    const tasks = PersistanceManager.retrieveAllTasks();
+    const taskObjects = PersistanceManager.retrieveAllTasks();
 
-    for (let i = 0; i < tasks.length; i++) {
-        createTaskDOM(tasks[i]);
+    for (const taskObject of taskObjects) {
+        createTaskDOM(taskObject);
     }
 }
 
 function createTaskDOMElements(taskObject, taskContainer) {
-    // these three DOM elements aren't really used so there's no need for their respective functions to return them but just in case yknow for potential future updates
+    // these DOM elements aren't really used so there's no need for their respective functions to return them but just in case yknow for potential future updates n shi
 
-    const titleNStatusContainer = document.createElement('div');
-    titleNStatusContainer.setAttribute('class', 'title-status-container');
+    const titleAndStatusContainer = document.createElement('div');
+    titleAndStatusContainer.setAttribute('class', 'title-status-container');
 
-    const taskStatusButton = createTaskStatusButtonDOM(taskObject, titleNStatusContainer);
+    const taskStatusButton = createTaskStatusButtonDOM(taskObject, titleAndStatusContainer);
 
-    const taskTitle = createTaskTitleDOM(taskObject, titleNStatusContainer);
+    const taskTitle = createTaskTitleDOM(taskObject, titleAndStatusContainer);
 
-    const categoriesNButtonsContainer = document.createElement('div');
-    categoriesNButtonsContainer.setAttribute('class', 'categories-buttons-container');
+    const categoriesAndButtonsContainer = document.createElement('div');
+    categoriesAndButtonsContainer.setAttribute('class', 'categories-buttons-container');
 
-    const taskCategories = createTaskCategoriesDOM(taskObject, categoriesNButtonsContainer);
+    const taskCategories = createTaskCategoriesDOM(taskObject, categoriesAndButtonsContainer);
 
-    const taskEditButton = createTaskEditButtonDOM(taskObject, categoriesNButtonsContainer);
+    const taskEditButton = createTaskEditButtonDOM(taskObject, categoriesAndButtonsContainer);
 
-    const taskDeleteButton = createTaskDeleteButtonDOM(taskObject, categoriesNButtonsContainer);
+    const taskDeleteButton = createTaskDeleteButtonDOM(taskObject, categoriesAndButtonsContainer);
 
-    taskContainer.appendChild(titleNStatusContainer);
-    taskContainer.appendChild(categoriesNButtonsContainer);
+    taskContainer.appendChild(titleAndStatusContainer);
+    taskContainer.appendChild(categoriesAndButtonsContainer);
 
     return { taskStatusButton, taskTitle, taskCategories, taskEditButton, taskDeleteButton };
 }
 
 function createTaskDOM(taskObject) {
-    const tasksContainer = document.querySelector('#tasks');
+    const tasksContainer = document.querySelector('#tasks-container');
 
     const taskContainer = createTaskContainerDOM(taskObject);
     
