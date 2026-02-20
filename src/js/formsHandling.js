@@ -9,6 +9,12 @@ export function clearForms() {
 export function clearForm(form) {
     form.title.value = '';
 
+    // all radio buttons with the name priority
+    const priorities = document.getElementsByName('priority');
+    for (const priority of priorities) {
+        priority.checked = false;
+    }
+
     form.Personal.checked = false;
     form.Work.checked = false;
     form.School.checked = false;
@@ -23,6 +29,7 @@ export function handleFormData(form) {
 
     let taskTitle;
     let taskDescription;
+    let taskPriority;
     let taskCategories = [];
 
     for (var pair of formData.entries()) {
@@ -31,11 +38,13 @@ export function handleFormData(form) {
             taskTitle = pair[1];
         } else if (pair[0] == 'description') {
             taskDescription = pair[1];
+        } else if (pair[0] == 'priority') {
+            taskPriority = pair[1];
         } else {
             // only the checked categories will be in this iterator, and they have pair[1] = 'on'
             taskCategories.push(pair[0]); 
         }
     }
 
-    return {taskTitle, taskDescription, taskCategories};
+    return {taskTitle, taskDescription, taskPriority, taskCategories};
 }

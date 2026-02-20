@@ -1,4 +1,8 @@
-export { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM }
+export { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM, setTaskContainerColor }
+
+function setTaskContainerColor(taskObject, taskContainer) {
+    taskContainer.setAttribute('data-background-color', taskObject.priority);
+}
 
 function createTaskContainerDOM(taskObject) {
     const taskContainer = document.createElement('div');

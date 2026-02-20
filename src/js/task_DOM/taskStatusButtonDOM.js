@@ -3,7 +3,7 @@ function setTaskStatusButtonColorDOM(taskObject) {
     if (taskObject.status == 'pending') {
         return 'transparent';
     } else {
-        return 'gray';
+        return 'white';
     }
 }
 

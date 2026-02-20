@@ -1,8 +1,21 @@
 .task-container {
     display: flex;
-    margin: 10px;
-    gap: 10px;
+    margin: 5px;
+    padding: 5px;
     justify-content: space-between;
+    border-radius: 10px;
+}
+
+.task-container[data-background-color='High'] {
+    background-color: rgba(230, 59, 59, 0.2);
+}
+
+.task-container[data-background-color='Medium'] {
+    background-color: rgba(248, 229, 54, 0.2);
+}
+
+.task-container[data-background-color='Low'] {
+    background-color: rgba(58, 240, 58, 0.2);
 }
 
 .title-status-container {
@@ -43,3 +56,4 @@
 .delete-task-button {
     background-color: rgb(165, 95, 106);
 }
+

@@ -23,6 +23,12 @@ function createTaskEditButtonEventListener(taskObject, taskEditButton) {
         editTaskForm.title.value = taskObject.title;
         editTaskForm.description.value = taskObject.description;
 
+        const priorities = document.getElementsByName('priority');
+        for (const priority of priorities) {
+            if (priority.value == taskObject.priority)
+            priority.checked = true;
+        }
+
         let editTaskCategoryCheckbox; // used to assign each category value looped through
         
         for (const taskObjectCategory of taskObject.categories) {

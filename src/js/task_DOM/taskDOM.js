@@ -1,5 +1,5 @@
 import { PersistanceManager } from '../logic.js';
-import { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM } from './taskBaseElementsDOM.js';
+import { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM, setTaskContainerColor } from './taskBaseElementsDOM.js';
 import { createTaskEditButtonDOM } from './taskEditButtonDOM.js';
 import { createTaskDeleteButtonDOM } from './taskDeleteButtonDOM.js';
 import { createTaskStatusButtonDOM } from './taskStatusButtonDOM.js';
@@ -17,12 +17,16 @@ function renderTasksDOM() {
 function createTaskDOMElements(taskObject, taskContainer) {
     // these DOM elements aren't really used so there's no need for their respective functions to return them but just in case yknow for potential future updates n shi
 
+    // title and status
+
     const titleAndStatusContainer = document.createElement('div');
     titleAndStatusContainer.setAttribute('class', 'title-status-container');
 
     const taskStatusButton = createTaskStatusButtonDOM(taskObject, titleAndStatusContainer);
 
     const taskTitle = createTaskTitleDOM(taskObject, titleAndStatusContainer);
+
+    // categories and buttons
 
     const categoriesAndButtonsContainer = document.createElement('div');
     categoriesAndButtonsContainer.setAttribute('class', 'categories-buttons-container');
@@ -32,6 +36,12 @@ function createTaskDOMElements(taskObject, taskContainer) {
     const taskEditButton = createTaskEditButtonDOM(taskObject, categoriesAndButtonsContainer);
 
     const taskDeleteButton = createTaskDeleteButtonDOM(taskObject, categoriesAndButtonsContainer);
+
+    // changing taskContainer background color
+
+    setTaskContainerColor(taskObject, taskContainer);
+    
+    // appending
 
     taskContainer.appendChild(titleAndStatusContainer);
     taskContainer.appendChild(categoriesAndButtonsContainer);
