@@ -21,6 +21,7 @@ function createTaskEditButtonEventListener(taskObject, taskEditButton) {
 
         editTaskForm.setAttribute('data-task-id', taskObject.id);
         editTaskForm.title.value = taskObject.title;
+        editTaskForm.description.value = taskObject.description;
 
         let editTaskCategoryCheckbox; // used to assign each category value looped through
         

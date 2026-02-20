@@ -3,12 +3,14 @@ export class Task {
     title;
     categories = [];
     status;
+    description;
 
-    constructor(title, categories) { // the categories parameter here must be implemented as an array
+    constructor(title, categories, description) { // the categories parameter here must be implemented as an array
         this.id = crypto.randomUUID();
         this.title = title;
         this.categories = CategoriesManager.addCategories(this.categories, categories);
         this.status = 'pending';
+        this.description = description;
     }
 
     switchStatus() {
