@@ -1,20 +1,20 @@
 export class Task {
     id;
     title;
-    categories = [];
-    status;
     description;
-    priority;
     dueDate;
+    status;
+    priority;
+    categories = [];
 
-    constructor(title, categories, priority, description, dueDate) { // the categories parameter here must be an array
+    constructor(title, description, dueDate, priority, categories) { // the categories parameter here must be an array
         this.id = crypto.randomUUID();
         this.title = title;
-        this.categories = categories;
-        this.status = 'pending'; // default status
         this.description = description;
-        this.priority = priority;
         this.dueDate = dueDate;
+        this.status = 'pending'; // default status
+        this.priority = priority;
+        this.categories = categories;
     }
 
     switchStatus() {

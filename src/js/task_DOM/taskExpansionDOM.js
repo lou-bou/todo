@@ -34,9 +34,9 @@ function createTaskExpansionEventListener(taskObject, taskExpansionButton) {
 
         taskExpansionDueDate.innerText = taskObject.dueDate;
 
-        taskExpansionStatus.innerText = taskObject.status;
-
         taskExpansionPriority.innerText = taskObject.priority;
+
+        taskExpansionStatus.innerText = taskObject.status;
 
         if (taskObject.categories.length > 0) {
             for (const category of taskObject.categories) {

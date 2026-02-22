@@ -20,10 +20,10 @@ addTaskButton.addEventListener('click', () => {
 addTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const { taskTitle, taskDescription, taskPriority, taskDueDate, taskCategories } = handleFormData(addTaskForm);
+    const { taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories } = handleFormData(addTaskForm);
 
     // this is logic stuff not supposed to be in dom, be careful with future imports to avoid circular dependencies
-    const taskObject = new Task(taskTitle, taskCategories, taskPriority, taskDescription, taskDueDate);
+    const taskObject = new Task(taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories);
     taskObject.store();
 
     createTaskDOM(taskObject);
@@ -57,13 +57,13 @@ editTaskForm.addEventListener('submit', (e) => {
 
     const taskContainer = document.querySelector(`div[data-task-id='${taskObjectId}']`);
 
-    const {taskTitle, taskDescription, taskPriority, taskDueDate, taskCategories} = handleFormData(editTaskForm);
+    const { taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories } = handleFormData(editTaskForm);
 
     taskObject.title = taskTitle;
     taskObject.description = taskDescription;
+    taskObject.dueDate = taskDueDate;
     taskObject.priority = taskPriority;
     taskObject.categories = taskCategories;
-    taskObject.dueDate = taskDueDate;
 
     taskObject.store();
 
@@ -88,8 +88,8 @@ const taskExpansionDialog = document.querySelector('#task-expansion-dialog');
 const taskExpansionTitle = document.querySelector('#task-expansion-title');
 const taskExpansionDescription = document.querySelector('#task-expansion-description');
 const taskExpansionDueDate = document.querySelector('#task-expansion-dueDate');
-const taskExpansionStatus = document.querySelector('#task-expansion-status');
 const taskExpansionPriority = document.querySelector('#task-expansion-priority');
+const taskExpansionStatus = document.querySelector('#task-expansion-status');
 const taskExpansionCategories = document.querySelector('#task-expansion-categories');
 
 taskExpansionDialog.addEventListener('keydown', (e) => {
@@ -100,9 +100,9 @@ taskExpansionDialog.addEventListener('keydown', (e) => {
 
         taskExpansionDueDate.innerHTML = '';
 
-        taskExpansionStatus.innerHTML = '';
-
         taskExpansionPriority.innerHTML = '';
+
+        taskExpansionStatus.innerHTML = '';
 
         taskExpansionCategories.innerHTML = '';
     }

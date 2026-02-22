@@ -32,8 +32,8 @@ function handleFormData(form) {
 
     let taskTitle;
     let taskDescription;
-    let taskPriority;
     let taskDueDate;
+    let taskPriority;
     let taskCategories = [];
 
     for (var pair of formData.entries()) {
@@ -45,11 +45,11 @@ function handleFormData(form) {
             case 'description':
                 taskDescription = pair[1];
                 break;
-            case 'priority':
-                taskPriority = pair[1];
-                break;
             case 'dueDate':
                 taskDueDate = pair[1];
+                break;
+            case 'priority':
+                taskPriority = pair[1];
                 break;
             default: // case for categories (one category that is selected has its own pair (category name - 'on'), if a category is not selected it has no pair)
                 taskCategories.push(pair[0]);
@@ -57,5 +57,5 @@ function handleFormData(form) {
         }
     }
 
-    return {taskTitle, taskDescription, taskPriority, taskDueDate, taskCategories};
+    return { taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories };
 }

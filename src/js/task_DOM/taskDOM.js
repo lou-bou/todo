@@ -18,6 +18,8 @@ function renderTasksDOM() {
 function createTaskDOMElements(taskObject, taskContainer) {
     // these DOM elements aren't really used so there's no need for their respective functions to return them but just in case yknow for potential future updates n shi
 
+    // the order in which these are created matters because it defines the order of the elements in DOM
+
     // title and status
 
     const taskSubContainer1 = document.createElement('div');
