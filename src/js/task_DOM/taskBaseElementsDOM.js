@@ -24,6 +24,7 @@ function createTaskTitleDOM(taskObject, taskContainer) {
     return taskTitle;
 }
 
+// isn't used in DOM, this will be used to show categories in task dialog modal
 function createTaskCategoriesDOM(taskObject, taskContainer) {
     let taskCategory; // used for iteration
 
