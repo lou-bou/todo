@@ -1,4 +1,4 @@
-export { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM, setTaskContainerColor, createTaskDueDateDOM }
+export { createTaskContainerDOM, createTaskTitleDOM, setTaskContainerColor, createTaskDueDateDOM }
 
 /*
 Important note:
@@ -27,21 +27,6 @@ function createTaskTitleDOM(taskObject, taskContainer) {
     taskContainer.appendChild(taskTitle);
 
     return taskTitle;
-}
-
-// isn't used in DOM, this will be used to show categories in task dialog modal
-function createTaskCategoriesDOM(taskObject, taskContainer) {
-    let taskCategory; // used for iteration
-
-    for (const category of taskObject.categories) {
-        taskCategory = document.createElement('span');
-        taskCategory.innerText = category;
-        taskCategory.setAttribute('class', 'task-category');
-
-        taskContainer.appendChild(taskCategory);
-    }
-
-    return taskObject.categories; // taskCategory and a category in taskObject.categories are the same lol
 }
 
 function createTaskDueDateDOM(taskObject, taskContainer) {

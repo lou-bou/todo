@@ -1,8 +1,9 @@
 import { PersistanceManager } from '../logic.js';
-import { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM, setTaskContainerColor, createTaskDueDateDOM} from './taskBaseElementsDOM.js';
+import { createTaskContainerDOM, createTaskTitleDOM, setTaskContainerColor, createTaskDueDateDOM} from './taskBaseElementsDOM.js';
 import { createTaskEditButtonDOM } from './taskEditButtonDOM.js';
 import { createTaskDeleteButtonDOM } from './taskDeleteButtonDOM.js';
 import { createTaskStatusButtonDOM } from './taskStatusButtonDOM.js';
+import { createTaskExpansionButtonDOM } from './taskExpansionDOM.js';
 
 export { renderTasksDOM, createTaskDOM, editTaskDOM }
 
@@ -25,6 +26,8 @@ function createTaskDOMElements(taskObject, taskContainer) {
     const taskStatusButton = createTaskStatusButtonDOM(taskObject, taskSubContainer1);
 
     const taskTitle = createTaskTitleDOM(taskObject, taskSubContainer1);
+
+    const taskExpansionButton = createTaskExpansionButtonDOM(taskObject, taskSubContainer1);
 
     // duedate and buttons
 
@@ -49,7 +52,7 @@ function createTaskDOMElements(taskObject, taskContainer) {
     taskContainer.appendChild(taskSubContainer1);
     taskContainer.appendChild(taskSubContainer2);
 
-    return { taskStatusButton, taskTitle, taskEditButton, taskDeleteButton };
+    return { taskStatusButton, taskTitle, taskExpansionButton, taskEditButton, taskDeleteButton };
 }
 
 function createTaskDOM(taskObject) {
@@ -57,7 +60,7 @@ function createTaskDOM(taskObject) {
 
     const taskContainer = createTaskContainerDOM(taskObject);
     
-    const { taskStatusButton, taskTitle, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
+    const { taskStatusButton, taskTitle, taskExpansionButton, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
 
     tasksContainer.appendChild(taskContainer);
 }
@@ -66,5 +69,5 @@ function createTaskDOM(taskObject) {
 function editTaskDOM(taskObject, taskContainer) {
     taskContainer.setAttribute('data-task-id', taskObject.id);
     
-    const { taskStatusButton, taskTitle, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
+    const { taskStatusButton, taskTitle, taskExpansionButton, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
 }

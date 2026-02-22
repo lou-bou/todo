@@ -10,7 +10,7 @@ export class Task {
     constructor(title, categories, priority, description, dueDate) { // the categories parameter here must be implemented as an array
         this.id = crypto.randomUUID();
         this.title = title;
-        this.categories = CategoriesManager.addCategories(this.categories, categories);
+        this.categories = AttributesManager.addCategories(this.categories, categories);
         this.status = 'pending';
         this.description = description;
         this.priority = priority;
@@ -36,7 +36,7 @@ export class Task {
     }
 }
 
-class CategoriesManager { // class for handling categories
+class AttributesManager { // class for handling categories
     static validCategories = ['Personal', 'Work', 'School', 'Urgent', 'Optional'];
 
     static addCategories(categorieslist, categories) {
