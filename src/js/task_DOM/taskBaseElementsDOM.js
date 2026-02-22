@@ -1,4 +1,9 @@
-export { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM, setTaskContainerColor }
+export { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM, setTaskContainerColor, createTaskDueDateDOM }
+
+/*
+Important note:
+taskContainer here isn't necessarily the main container for a task, it could also be the sub container for that tasks' title and description for example.
+*/
 
 function setTaskContainerColor(taskObject, taskContainer) {
     taskContainer.setAttribute('data-background-color', taskObject.priority);
@@ -37,4 +42,13 @@ function createTaskCategoriesDOM(taskObject, taskContainer) {
     }
 
     return taskObject.categories; // taskCategory and a category in taskObject.categories are the same lol
+}
+
+function createTaskDueDateDOM(taskObject, taskContainer) {
+    const taskDueDate = document.createElement('span');
+
+    taskDueDate.innerText = taskObject.dueDate;
+    taskDueDate.setAttribute('class', 'task-dueDate');
+
+    taskContainer.appendChild(taskDueDate);
 }

@@ -18,14 +18,7 @@
     background-color: rgba(58, 240, 58, 0.2);
 }
 
-.title-status-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.categories-buttons-container {
+.task-sub-container-1, .task-sub-container-2 {
     display: flex;
     justify-content: center;
     align-items: center;

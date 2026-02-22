@@ -1,5 +1,5 @@
 import { PersistanceManager } from '../logic.js';
-import { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM, setTaskContainerColor } from './taskBaseElementsDOM.js';
+import { createTaskContainerDOM, createTaskTitleDOM, createTaskCategoriesDOM, setTaskContainerColor, createTaskDueDateDOM} from './taskBaseElementsDOM.js';
 import { createTaskEditButtonDOM } from './taskEditButtonDOM.js';
 import { createTaskDeleteButtonDOM } from './taskDeleteButtonDOM.js';
 import { createTaskStatusButtonDOM } from './taskStatusButtonDOM.js';
@@ -19,24 +19,26 @@ function createTaskDOMElements(taskObject, taskContainer) {
 
     // title and status
 
-    const titleAndStatusContainer = document.createElement('div');
-    titleAndStatusContainer.setAttribute('class', 'title-status-container');
+    const taskSubContainer1 = document.createElement('div');
+    taskSubContainer1.setAttribute('class', 'task-sub-container-1');
 
-    const taskStatusButton = createTaskStatusButtonDOM(taskObject, titleAndStatusContainer);
+    const taskStatusButton = createTaskStatusButtonDOM(taskObject, taskSubContainer1);
 
-    const taskTitle = createTaskTitleDOM(taskObject, titleAndStatusContainer);
+    const taskTitle = createTaskTitleDOM(taskObject, taskSubContainer1);
 
-    // categories and buttons
+    // duedate and buttons
 
-    const categoriesAndButtonsContainer = document.createElement('div');
-    categoriesAndButtonsContainer.setAttribute('class', 'categories-buttons-container');
+    const taskSubContainer2 = document.createElement('div');
+    taskSubContainer2.setAttribute('class', 'task-sub-container-2');
 
-    // const taskCategories = createTaskCategoriesDOM(taskObject, categoriesAndButtonsContainer);
+    // const taskCategories = createTaskCategoriesDOM(taskObject, taskSubContainer2);
     // these will be shown in task expanded dialog modal instead
 
-    const taskEditButton = createTaskEditButtonDOM(taskObject, categoriesAndButtonsContainer);
+    const taskDueDate = createTaskDueDateDOM(taskObject, taskSubContainer2);
 
-    const taskDeleteButton = createTaskDeleteButtonDOM(taskObject, categoriesAndButtonsContainer);
+    const taskEditButton = createTaskEditButtonDOM(taskObject, taskSubContainer2);
+
+    const taskDeleteButton = createTaskDeleteButtonDOM(taskObject, taskSubContainer2);
 
     // changing taskContainer background color
 
@@ -44,8 +46,8 @@ function createTaskDOMElements(taskObject, taskContainer) {
     
     // appending
 
-    taskContainer.appendChild(titleAndStatusContainer);
-    taskContainer.appendChild(categoriesAndButtonsContainer);
+    taskContainer.appendChild(taskSubContainer1);
+    taskContainer.appendChild(taskSubContainer2);
 
     return { taskStatusButton, taskTitle, taskEditButton, taskDeleteButton };
 }
