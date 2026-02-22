@@ -1,5 +1,5 @@
 import { PersistanceManager } from '../logic.js';
-import { createTaskContainerDOM, createTaskTitleDOM, setTaskContainerColor, createTaskDueDateDOM} from './taskBaseElementsDOM.js';
+import { createTaskContainerDOM, createTaskTitleDOM, createTaskDueDateDOM} from './taskBaseElementsDOM.js';
 import { createTaskEditButtonDOM } from './taskEditButtonDOM.js';
 import { createTaskDeleteButtonDOM } from './taskDeleteButtonDOM.js';
 import { createTaskStatusButtonDOM } from './taskStatusButtonDOM.js';
@@ -34,9 +34,6 @@ function createTaskDOMElements(taskObject, taskContainer) {
     const taskSubContainer2 = document.createElement('div');
     taskSubContainer2.setAttribute('class', 'task-sub-container-2');
 
-    // const taskCategories = createTaskCategoriesDOM(taskObject, taskSubContainer2);
-    // these will be shown in task expanded dialog modal instead
-
     const taskDueDate = createTaskDueDateDOM(taskObject, taskSubContainer2);
 
     const taskEditButton = createTaskEditButtonDOM(taskObject, taskSubContainer2);
@@ -45,7 +42,7 @@ function createTaskDOMElements(taskObject, taskContainer) {
 
     // changing taskContainer background color
 
-    setTaskContainerColor(taskObject, taskContainer);
+    taskContainer.setAttribute('data-background-color', taskObject.priority);
     
     // appending
 

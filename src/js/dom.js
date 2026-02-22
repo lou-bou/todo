@@ -40,6 +40,9 @@ addTaskDialog.addEventListener('keydown', (e) => {
 });
 
 // editing a task
+
+// the edit task button is created for each corresponding task, and has its own event listener in taskEditButtonDOM.js
+
 const editTaskDialog = document.querySelector('#edit-task-dialog');
 const editTaskForm = document.querySelector('#edit-task-form');
 
@@ -76,5 +79,31 @@ editTaskForm.addEventListener('submit', (e) => {
 editTaskDialog.addEventListener('keydown', (e) => {
     if (e.key == 'Escape') {
         clearForm(editTaskForm);
+    }
+});
+
+// task expansion dialog event listener for escape
+
+const taskExpansionDialog = document.querySelector('#task-expansion-dialog');
+const taskExpansionTitle = document.querySelector('#task-expansion-title');
+const taskExpansionDescription = document.querySelector('#task-expansion-description');
+const taskExpansionDueDate = document.querySelector('#task-expansion-dueDate');
+const taskExpansionStatus = document.querySelector('#task-expansion-status');
+const taskExpansionPriority = document.querySelector('#task-expansion-priority');
+const taskExpansionCategories = document.querySelector('#task-expansion-categories');
+
+taskExpansionDialog.addEventListener('keydown', (e) => {
+    if (e.key == 'Escape') {
+        taskExpansionTitle.innerHTML = '';
+
+        taskExpansionDescription.innerHTML = '';
+
+        taskExpansionDueDate.innerHTML = '';
+
+        taskExpansionStatus.innerHTML = '';
+
+        taskExpansionPriority.innerHTML = '';
+
+        taskExpansionCategories.innerHTML = '';
     }
 });

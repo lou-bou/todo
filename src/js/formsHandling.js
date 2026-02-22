@@ -9,6 +9,7 @@ function clearForms() {
 }
 
 function clearForm(form) {
+    // input fields that have a value attribute
     form.title.value = '';
     form.dueDate.value = '';
     form.description.value = '';

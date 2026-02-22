@@ -2,53 +2,6 @@ import { createTaskTitleDOM, createTaskDueDateDOM } from './taskBaseElementsDOM.
 
 export { createTaskExpansionButtonDOM }
 
-function createTaskDescriptionDOM(taskObject, taskContainer) {
-    const taskDescription = document.createElement('div');
-
-    taskDescription.innerText = taskObject.description;
-    taskDescription.setAttribute('class', 'task-description');
-
-    taskContainer.appendChild(taskDescription);
-
-    return taskDescription;
-}
-
-function createTaskPriorityDOM(taskObject, taskContainer) {
-    const taskPriority = document.createElement('span');
-
-    taskPriority.innerText = taskObject.priority;
-    taskDescription.setAttribute('class', 'task-priority');
-
-    taskContainer.appendChild(taskPriority);
-
-    return taskPriority;
-}
-
-function createTaskStatusDOM(taskObject, taskContainer) {
-    const taskStatus = document.createElement('span');
-
-    taskStatus.innerText = taskObject.status;
-    taskStatus.setAttribute('class', 'task-status');
-
-    taskContainer.appendChild(taskStatus);
-
-    return taskStatus;
-}
-
-function createTaskCategoriesDOM(taskObject, taskContainer) {
-    let taskCategory; // used for iteration
-
-    for (const category of taskObject.categories) {
-        taskCategory = document.createElement('span');
-        taskCategory.innerText = category;
-        taskCategory.setAttribute('class', 'task-category');
-
-        taskContainer.appendChild(taskCategory);
-    }
-
-    return taskObject.categories; // taskCategory and a category in taskObject.categories are the same lol
-}
-
 function createTaskExpansionButtonDOM(taskObject, taskContainer) {
     const taskExpansionButton = document.createElement('button');
 
@@ -99,20 +52,4 @@ function createTaskExpansionEventListener(taskObject, taskExpansionButton) {
         }
         
     })
-
-    taskExpansionDialog.addEventListener('keydown', (e) => {
-        if (e.key == 'Escape') {
-            taskExpansionTitle.innerHTML = '';
-
-            taskExpansionDescription.innerHTML = '';
-
-            taskExpansionDueDate.innerHTML = '';
-
-            taskExpansionStatus.innerHTML = '';
-
-            taskExpansionPriority.innerHTML = '';
-
-            taskExpansionCategories.innerHTML = '';
-        }
-    });
 }

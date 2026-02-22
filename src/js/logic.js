@@ -7,7 +7,7 @@ export class Task {
     priority;
     dueDate;
 
-    constructor(title, categories, priority, description, dueDate) { // the categories parameter here must be implemented as an array
+    constructor(title, categories, priority, description, dueDate) { // the categories parameter here must be an array
         this.id = crypto.randomUUID();
         this.title = title;
         this.categories = categories;

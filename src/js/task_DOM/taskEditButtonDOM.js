@@ -34,9 +34,8 @@ function createTaskEditButtonEventListener(taskObject, taskEditButton) {
             }
         }
 
-        let editTaskCategoryCheckbox; // used to assign each category value looped through
-        
         // prefill categories
+        let editTaskCategoryCheckbox; // used to assign each category value looped through
         for (const taskObjectCategory of taskObject.categories) {
             editTaskCategoryCheckbox = document.querySelector(`#edit-${taskObjectCategory}`);
             editTaskCategoryCheckbox.checked = true;

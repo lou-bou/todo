@@ -1,6 +1,7 @@
 export function createTaskStatusButtonDOM(taskObject, taskContainer) {
     const taskStatusButton = document.createElement('div');
 
+    // for styling logic
     taskStatusButton.setAttribute('data-status', taskObject.status);
 
     taskStatusButton.setAttribute('class', 'status-task-button');
@@ -16,7 +17,8 @@ export function createTaskStatusButtonDOM(taskObject, taskContainer) {
 function createTaskStatusButtonEventListener(taskObject, taskStatusButton) {
     taskStatusButton.addEventListener('click', () => {
         taskObject.switchStatus();
-
+        
+        // for styling logic
         taskStatusButton.setAttribute('data-status', taskObject.status);
     });
 }
