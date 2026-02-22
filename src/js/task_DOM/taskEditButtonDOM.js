@@ -29,8 +29,9 @@ function createTaskEditButtonEventListener(taskObject, taskEditButton) {
         // prefill priority
         const priorities = document.getElementsByName('priority');
         for (const priority of priorities) {
-            if (priority.value == taskObject.priority)
-            priority.checked = true;
+            if (priority.value == taskObject.priority) {
+                priority.checked = true;
+            }
         }
 
         let editTaskCategoryCheckbox; // used to assign each category value looped through

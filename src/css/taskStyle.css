@@ -34,6 +34,14 @@
     cursor: pointer;
 }
 
+.status-task-button[data-status='pending'] {
+    background-color: transparent;
+}
+
+.status-task-button[data-status='completed'] {
+    background-color: white;
+}
+
 .task-title {
     font-size: 20px;
 }

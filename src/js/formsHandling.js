@@ -1,4 +1,6 @@
-export function clearForms() {
+export { clearForms, clearForm, handleFormData }
+
+function clearForms() {
     const forms = document.querySelectorAll('.task-form');
     
     forms.forEach((form) => {
@@ -6,7 +8,7 @@ export function clearForms() {
     });
 }
 
-export function clearForm(form) {
+function clearForm(form) {
     form.title.value = '';
     form.dueDate.value = '';
     form.description.value = '';
@@ -24,7 +26,7 @@ export function clearForm(form) {
     }
 }
 
-export function handleFormData(form) {
+function handleFormData(form) {
     let formData = new FormData(form);
 
     let taskTitle;

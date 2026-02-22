@@ -52,7 +52,7 @@ function createTaskDOMElements(taskObject, taskContainer) {
     taskContainer.appendChild(taskSubContainer1);
     taskContainer.appendChild(taskSubContainer2);
 
-    return { taskStatusButton, taskTitle, taskExpansionButton, taskEditButton, taskDeleteButton };
+    return { taskStatusButton, taskTitle, taskExpansionButton, taskDueDate, taskEditButton, taskDeleteButton };
 }
 
 function createTaskDOM(taskObject) {
@@ -60,7 +60,7 @@ function createTaskDOM(taskObject) {
 
     const taskContainer = createTaskContainerDOM(taskObject);
     
-    const { taskStatusButton, taskTitle, taskExpansionButton, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
+    const { taskStatusButton, taskTitle, taskExpansionButton, taskDueDate, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
 
     tasksContainer.appendChild(taskContainer);
 }
@@ -69,5 +69,5 @@ function createTaskDOM(taskObject) {
 function editTaskDOM(taskObject, taskContainer) {
     taskContainer.setAttribute('data-task-id', taskObject.id);
     
-    const { taskStatusButton, taskTitle, taskExpansionButton, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
+    const { taskStatusButton, taskTitle, taskExpansionButton, taskDueDate, taskEditButton, taskDeleteButton } = createTaskDOMElements(taskObject, taskContainer);
 }
