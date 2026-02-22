@@ -10,8 +10,8 @@ export class Task {
     constructor(title, categories, priority, description, dueDate) { // the categories parameter here must be implemented as an array
         this.id = crypto.randomUUID();
         this.title = title;
-        this.categories = AttributesManager.addCategories(this.categories, categories);
-        this.status = 'pending';
+        this.categories = categories;
+        this.status = 'pending'; // default status
         this.description = description;
         this.priority = priority;
         this.dueDate = dueDate;
@@ -33,25 +33,6 @@ export class Task {
 
     store() {
         PersistanceManager.storeTask(this);
-    }
-}
-
-class AttributesManager { // class for handling categories
-    static validCategories = ['Personal', 'Work', 'School', 'Urgent', 'Optional'];
-
-    static addCategories(categorieslist, categories) {
-        if (categories) {
-            for (let i = 0; i < categories.length; i++) {
-                if (this.validCategories.includes(categories[i])) {
-                    categorieslist.push(categories[i]);
-                } else {
-                    console.log(`Category '${categories[i]}' is not a valid category.`);
-                }
-            }
-        }
-
-        return categorieslist;
-        
     }
 }
 
