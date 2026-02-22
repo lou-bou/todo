@@ -3,7 +3,7 @@ import { createTaskContainerDOM, createTaskTitleDOM, createTaskDueDateDOM} from 
 import { createTaskEditButtonDOM } from './taskEditButtonDOM.js';
 import { createTaskDeleteButtonDOM } from './taskDeleteButtonDOM.js';
 import { createTaskStatusButtonDOM } from './taskStatusButtonDOM.js';
-import { createTaskExpansionButtonDOM } from './taskExpansionDOM.js';
+import { createTaskExpansionButtonDOM } from './taskExpansionButtonDOM.js';
 
 export { renderTasksDOM, createTaskDOM, editTaskDOM }
 
