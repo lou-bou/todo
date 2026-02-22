@@ -8,22 +8,20 @@ export function clearForms() {
 
 export function clearForm(form) {
     form.title.value = '';
+    form.dueDate.value = '';
+    form.description.value = '';
 
-    // all radio buttons with the name priority
-    const priorities = document.getElementsByName('priority');
-    for (const priority of priorities) {
+    // uncheck the priorty radio button that is checked
+    const priority = document.querySelector('input[name="priority"]:checked');
+    if (priority) { // in case the user presses Escape without checking any priority
         priority.checked = false;
     }
 
-    form.dueDate.value = '';
-
-    form.Personal.checked = false;
-    form.Work.checked = false;
-    form.School.checked = false;
-    form.Urgent.checked = false;
-    form.Optional.checked = false;
-
-    form.description.value = '';
+    // uncheck every category checkbox
+    const categories = document.querySelectorAll('input[type="checkbox"]');
+    for (const category of categories) {
+        category.checked = false;
+    }
 }
 
 export function handleFormData(form) {

@@ -5,14 +5,7 @@ import { clearForm, clearForms, handleFormData } from './formsHandling.js';
 import { renderTasksDOM, createTaskDOM, editTaskDOM } from './task_DOM/taskDOM.js';
 
 renderTasksDOM(); // gets called each time the page is loaded to display all tasks in localStorage
-clearForms(); // gets called each time the page is loaded to clear all forms from old values
-
-// this handles pressing escape on a dialog form. Without it, the form would still have the values from the previous task
-document.addEventListener('keydown', (e) => {
-    if (e.key == 'Escape') {
-        clearForms();
-    }
-});
+clearForms(); // gets called each time the page is loaded to clear all forms from old values (if user reloaded while a dialog is still open)
 
 // adding a task
 
@@ -38,6 +31,12 @@ addTaskForm.addEventListener('submit', (e) => {
     clearForm(addTaskForm);
 
     addTaskDialog.close();
+});
+
+addTaskDialog.addEventListener('keydown', (e) => {
+    if (e.key == 'Escape') {
+        clearForm(addTaskForm);
+    }
 });
 
 // editing a task
@@ -72,4 +71,10 @@ editTaskForm.addEventListener('submit', (e) => {
     clearForm(editTaskForm);
 
     editTaskDialog.close();
+});
+
+editTaskDialog.addEventListener('keydown', (e) => {
+    if (e.key == 'Escape') {
+        clearForm(editTaskForm);
+    }
 });

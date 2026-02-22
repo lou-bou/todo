@@ -102,17 +102,17 @@ function createTaskExpansionEventListener(taskObject, taskExpansionButton) {
 
     taskExpansionDialog.addEventListener('keydown', (e) => {
         if (e.key == 'Escape') {
-        taskExpansionTitle.innerHTML = '';
+            taskExpansionTitle.innerHTML = '';
 
-        taskExpansionDescription.innerHTML = '';
+            taskExpansionDescription.innerHTML = '';
 
-        taskExpansionDueDate.innerHTML = '';
+            taskExpansionDueDate.innerHTML = '';
 
-        taskExpansionStatus.innerHTML = '';
+            taskExpansionStatus.innerHTML = '';
 
-        taskExpansionPriority.innerHTML = '';
+            taskExpansionPriority.innerHTML = '';
 
-        taskExpansionCategories.innerHTML = '';
+            taskExpansionCategories.innerHTML = '';
         }
     });
 }
