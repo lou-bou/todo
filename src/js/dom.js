@@ -27,10 +27,10 @@ addTaskButton.addEventListener('click', () => {
 addTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const { taskTitle, taskDescription, taskPriority, taskCategories } = handleFormData(addTaskForm);
+    const { taskTitle, taskDescription, taskPriority, taskDueDate, taskCategories } = handleFormData(addTaskForm);
 
     // this is logic stuff not supposed to be in dom, be careful with future imports to avoid circular dependencies
-    const taskObject = new Task(taskTitle, taskCategories, taskPriority, taskDescription);
+    const taskObject = new Task(taskTitle, taskCategories, taskPriority, taskDescription, taskDueDate);
     taskObject.store();
 
     createTaskDOM(taskObject);
@@ -55,12 +55,13 @@ editTaskForm.addEventListener('submit', (e) => {
 
     const taskContainer = document.querySelector(`div[data-task-id='${taskObjectId}']`);
 
-    const {taskTitle, taskDescription, taskPriority, taskCategories} = handleFormData(editTaskForm);
+    const {taskTitle, taskDescription, taskPriority, taskDueDate, taskCategories} = handleFormData(editTaskForm);
 
     taskObject.title = taskTitle;
     taskObject.description = taskDescription;
     taskObject.priority = taskPriority;
     taskObject.categories = taskCategories;
+    taskObject.dueDate = taskDueDate;
 
     taskObject.store();
 

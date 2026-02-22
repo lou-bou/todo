@@ -20,9 +20,13 @@ function createTaskEditButtonEventListener(taskObject, taskEditButton) {
         editTaskDialog.showModal();
 
         editTaskForm.setAttribute('data-task-id', taskObject.id);
+
+        // prefill title, description and due date
         editTaskForm.title.value = taskObject.title;
         editTaskForm.description.value = taskObject.description;
+        editTaskForm.dueDate.value = taskObject.dueDate;
 
+        // prefill priority
         const priorities = document.getElementsByName('priority');
         for (const priority of priorities) {
             if (priority.value == taskObject.priority)
@@ -31,6 +35,7 @@ function createTaskEditButtonEventListener(taskObject, taskEditButton) {
 
         let editTaskCategoryCheckbox; // used to assign each category value looped through
         
+        // prefill categories
         for (const taskObjectCategory of taskObject.categories) {
             editTaskCategoryCheckbox = document.querySelector(`#edit-${taskObjectCategory}`);
             editTaskCategoryCheckbox.checked = true;
