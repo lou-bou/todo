@@ -1,4 +1,6 @@
-export class Task {
+export { Task, PersistanceManager }
+
+class Task {
     id;
     title;
     description;
@@ -36,7 +38,7 @@ export class Task {
     }
 }
 
-export class PersistanceManager { // utility class for all localStorage related functions
+class PersistanceManager { // utility class for all localStorage related functions
     static storeTask(taskObject) {
         const stringifiedTask = JSON.stringify(taskObject); // at this point, the task object has lost all of its methods
         localStorage.setItem(taskObject.id, stringifiedTask);

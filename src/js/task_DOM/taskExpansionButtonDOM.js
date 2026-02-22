@@ -1,5 +1,3 @@
-import { createTaskTitleDOM, createTaskDueDateDOM } from './taskBaseElementsDOM.js';
-
 export { createTaskExpansionButtonDOM }
 
 function createTaskExpansionButtonDOM(taskObject, taskContainer) {
@@ -11,12 +9,12 @@ function createTaskExpansionButtonDOM(taskObject, taskContainer) {
 
     taskContainer.appendChild(taskExpansionButton);
 
-    createTaskExpansionEventListener(taskObject, taskExpansionButton);
+    createTaskExpansionButtonEventListener(taskObject, taskExpansionButton);
 
     return taskExpansionButton;
 }
 
-function createTaskExpansionEventListener(taskObject, taskExpansionButton) {
+function createTaskExpansionButtonEventListener(taskObject, taskExpansionButton) {
     const taskExpansionDialog = document.querySelector('#task-expansion-dialog');
     const taskExpansionTitle = document.querySelector('#task-expansion-title');
     const taskExpansionDescription = document.querySelector('#task-expansion-description');
