@@ -8,6 +8,7 @@ class Task {
     status;
     priority;
     categories = [];
+    type;
 
     constructor(title, description, dueDate, priority, categories) { // the categories parameter here must be an array
         this.id = crypto.randomUUID();
@@ -17,6 +18,7 @@ class Task {
         this.status = 'pending'; // default status
         this.priority = priority;
         this.categories = categories;
+        this.type = 'Task';
     }
 
     switchStatus() {
@@ -38,6 +40,19 @@ class Task {
     }
 }
 
+class Project {
+    id;
+    title;
+    taskIds = [];
+    type;
+
+    constructor (title) {
+        this.id = crypto.randomUUID();
+        this.title = title;
+        this.type = 'Project';
+    }
+}
+
 class PersistanceManager { // utility class for all localStorage related functions
     static storeTask(taskObject) {
         const stringifiedTask = JSON.stringify(taskObject); // at this point, the task object has lost all of its methods
@@ -47,6 +62,12 @@ class PersistanceManager { // utility class for all localStorage related functio
     static retrieveTask(taskObjectId) { // the retrieved task object doesn't have its methods, so this creates a new task and assigns its methods to the retrieved task object
         const plainTaskObject = localStorage.getItem(taskObjectId);
         const parsedTaskObject = JSON.parse(plainTaskObject);
+
+        // if it is not of type "Task" (meaning it's of type "Project"), return null
+        if (parsedTaskObject.type != 'Task') {
+            return null;
+        }
+        
         const reconstructedTaskObject = new Task();
         Object.assign(reconstructedTaskObject, parsedTaskObject);
         return reconstructedTaskObject;
@@ -55,11 +76,16 @@ class PersistanceManager { // utility class for all localStorage related functio
     static retrieveAllTasks() {
         let taskObjects = [];
         let taskObject; // to use in iteration for each task in the list
-        const taskObjectIds = Object.keys(localStorage); // gets all localStorage keys (the tasks ids in this case)
+        const ObjectIds = Object.keys(localStorage); // gets all localStorage keys (both task ids and project ids)
         
-        for (let i = 0; i < taskObjectIds.length; i++) {
-            taskObject = this.retrieveTask(taskObjectIds[i]);
-            taskObjects.push(taskObject);
+        for (let i = 0; i < ObjectIds.length; i++) {
+            taskObject = this.retrieveTask(ObjectIds[i]);
+
+            // only push this object if it's a task object, because the ObjectIds contains both project ids and task ids
+            if (taskObject) {
+                taskObjects.push(taskObject);
+            }
+           
         }
 
         return taskObjects;
@@ -68,4 +94,14 @@ class PersistanceManager { // utility class for all localStorage related functio
     static deleteTask(taskObjectId) {
         localStorage.removeItem(taskObjectId);
     }
+
+    static storeProject(projectObject) {
+        const stringifiedProject = JSON.stringify(projectObject);
+        localStorage.setItem(projectObject.id, stringifiedProject);
+    }
 }
+
+// a permanent default project
+const DefaultProject = new Project("Default");
+
+PersistanceManager.storeProject(DefaultProject);
