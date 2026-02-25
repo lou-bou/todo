@@ -56,6 +56,11 @@ class Project {
         this.taskIds.push(taskId);
     }
 
+    removeTask(taskId) {
+        const index = this.taskIds.indexOf(taskId);
+        this.taskIds.splice(index, 1);
+    }
+
     store() {
         PersistanceManager.storeProject(this);
     }
