@@ -1,4 +1,4 @@
-export { Task, PersistanceManager, Project, DefaultProject }
+export { Task, PersistanceManager, Project, defaultProject }
 
 class Task {
     id;
@@ -64,6 +64,25 @@ class Project {
     store() {
         PersistanceManager.storeProject(this);
     }
+
+    static getDefault() {
+
+        // loop through all projectObjects, and find the one with the unique id "default"
+        const projectObjects = PersistanceManager.retrieveAllProjects();
+
+        // if it exists, return it
+        for (const projectObject of projectObjects) {
+            if (projectObject.id == "default") {
+                return projectObject;
+            }
+        }
+
+        // if it doesnt, create it
+        const newDefaultProject = new Project("Default");
+        newDefaultProject.id = "default"; // overwrite project id
+        newDefaultProject.store();
+        return newDefaultProject;
+    }
 }
 
 class PersistanceManager { // utility class for all localStorage related functions
@@ -112,9 +131,40 @@ class PersistanceManager { // utility class for all localStorage related functio
         const stringifiedProject = JSON.stringify(projectObject);
         localStorage.setItem(projectObject.id, stringifiedProject);
     }
+
+    static retrieveProject(taskProjectId) { // the retrieved task object doesn't have its methods, so this creates a new task and assigns its methods to the retrieved task object
+        const plainProjectObject = localStorage.getItem(taskProjectId);
+        const parsedProjectObject = JSON.parse(plainProjectObject);
+
+        if (parsedProjectObject.type != 'Project') {
+            return null;
+        }
+        
+        const reconstructedProjectObject = new Project();
+        Object.assign(reconstructedProjectObject, parsedProjectObject);
+        return reconstructedProjectObject;
+    }
+
+    static retrieveAllProjects() {
+        let projectObjects = [];
+        let projectObject;
+        const ObjectIds = Object.keys(localStorage);
+
+        for (let i = 0; i < ObjectIds.length; i++) {
+            projectObject = this.retrieveProject(ObjectIds[i]);
+
+            if (projectObject) {
+                projectObjects.push(projectObject);
+            }
+           
+        }
+
+        return projectObjects;
+    }
 }
 
 // a permanent default project
-const DefaultProject = new Project("Default");
+// if it exists, it is assigned its object
+// if it doesnt, its created
 
-PersistanceManager.storeProject(DefaultProject);
+const defaultProject = Project.getDefault();

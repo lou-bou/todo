@@ -1,4 +1,4 @@
-import { DefaultProject } from "../logic.js";
+import { defaultProject } from "../logic.js";
 
 export function createTaskDeleteButtonDOM(taskObject, taskContainer) {
     const taskDeleteButton = document.createElement('button');
@@ -16,8 +16,8 @@ export function createTaskDeleteButtonDOM(taskObject, taskContainer) {
 
 function createTaskDeleteButtonEventListener(taskObject, taskDeleteButton) {
     taskDeleteButton.addEventListener('click', () => {
-        DefaultProject.removeTask(taskObject.id);
-        DefaultProject.store();
+        defaultProject.removeTask(taskObject.id);
+        defaultProject.store();
 
         taskObject.delete();
 

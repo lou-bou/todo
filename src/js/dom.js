@@ -1,6 +1,6 @@
 // this is the entry DOM handling js module but it's also where most global event listeners go
 
-import { Task, PersistanceManager, Project, DefaultProject } from './logic.js';
+import { Task, PersistanceManager, Project, defaultProject } from './logic.js';
 import { clearForm, clearForms, handleFormData } from './formsHandling.js';
 import { renderTasksDOM, createTaskDOM, editTaskDOM } from './task_DOM/taskDOM.js';
 
@@ -26,8 +26,8 @@ addTaskForm.addEventListener('submit', (e) => {
     const taskObject = new Task(taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories);
     taskObject.store();
 
-    DefaultProject.addTask(taskObject.id);
-    DefaultProject.store();
+    defaultProject.addTask(taskObject.id);
+    defaultProject.store();
 
     createTaskDOM(taskObject);
 
