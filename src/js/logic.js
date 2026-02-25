@@ -1,4 +1,4 @@
-export { Task, PersistanceManager }
+export { Task, PersistanceManager, Project, DefaultProject }
 
 class Task {
     id;
@@ -46,10 +46,18 @@ class Project {
     taskIds = [];
     type;
 
-    constructor (title) {
+    constructor(title) {
         this.id = crypto.randomUUID();
         this.title = title;
         this.type = 'Project';
+    }
+
+    addTask(taskId) {
+        this.taskIds.push(taskId);
+    }
+
+    store() {
+        PersistanceManager.storeProject(this);
     }
 }
 
