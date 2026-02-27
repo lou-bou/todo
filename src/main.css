@@ -1,4 +1,5 @@
 @import './css/taskStyle.css';
+@import './css/projectStyle.css';
 
 :root {
     --dark-color: #181a1b;
@@ -37,11 +38,6 @@ button {
     height: 80%;
 }
 
-#add-task-button {
-    background-color: white;
-    color: var(--dark-color);
-    font-size: 150%;    
-}
 
 h1 {
     margin: 0;
