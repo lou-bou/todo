@@ -1,6 +1,7 @@
 import { defaultProject } from "../logic.js";
+export { createTaskDeleteButtonDOM };
 
-export function createTaskDeleteButtonDOM(taskObject, taskContainer) {
+function createTaskDeleteButtonDOM(taskObject, taskContainer) {
     const taskDeleteButton = document.createElement('button');
 
     taskDeleteButton.innerText = 'Delete';

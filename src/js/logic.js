@@ -31,13 +31,13 @@ class Task {
         PersistanceManager.storeTask(this);
     }
 
-    delete() {
-        PersistanceManager.deleteTask(this.id);
-    }
-
     store() {
         PersistanceManager.storeTask(this);
     }
+
+    delete() {
+        PersistanceManager.deleteTask(this.id);
+    }    
 }
 
 class Project {
@@ -63,6 +63,10 @@ class Project {
 
     store() {
         PersistanceManager.storeProject(this);
+    }
+
+    delete() {
+        PersistanceManager.deleteProject(this.id);
     }
 
     static getDefault() {
@@ -160,6 +164,10 @@ class PersistanceManager { // utility class for all localStorage related functio
         }
 
         return projectObjects;
+    }
+
+    static deleteProject(projectObjectId) {
+        localStorage.removeItem(projectObjectId);
     }
 }
 

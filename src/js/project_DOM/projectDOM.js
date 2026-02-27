@@ -1,6 +1,7 @@
 import { PersistanceManager } from "../logic.js";
 import { createProjectContainerDOM, createProjectTitleDOM } from "./projectBaseElementsDOM.js";
 import { createProjectEditButtonDOM } from "./projectEditButtonDOM.js";
+import { createProjectDeleteButtonDOM } from "./projectDeleteButtonDOM.js";
 
 export { renderProjectsDOM, createProjectDOM, editProjectDOM };
 
@@ -30,12 +31,14 @@ function createProjectDOMElements(projectObject, projectContainer) {
 
     const projectEditButton = createProjectEditButtonDOM(projectObject, projectSubContainer2);
 
+    const projectDeleteButton = createProjectDeleteButtonDOM(projectObject, projectSubContainer2);
+
     // appending
 
     projectContainer.appendChild(projectSubContainer1);
     projectContainer.appendChild(projectSubContainer2);
 
-    return { projectTitle, projectEditButton };
+    return { projectTitle, projectEditButton, projectDeleteButton };
 }
 
 function createProjectDOM(projectObject) {
@@ -43,7 +46,7 @@ function createProjectDOM(projectObject) {
 
     const projectContainer = createProjectContainerDOM(projectObject);
 
-    const { projectTitle, projectEditButton } = createProjectDOMElements(projectObject, projectContainer);
+    const { projectTitle, projectEditButton, projectDeleteButton } = createProjectDOMElements(projectObject, projectContainer);
 
     projectsContainer.appendChild(projectContainer);
 }
@@ -51,5 +54,5 @@ function createProjectDOM(projectObject) {
 function editProjectDOM(projectObject, projectContainer) {
     projectContainer.setAttribute("data-project-id", projectObject.id);
 
-    const { projectTitle, projectEditButton } = createProjectDOMElements(projectObject, projectContainer);
+    const { projectTitle, projectEditButton, projectDeleteButton } = createProjectDOMElements(projectObject, projectContainer);
 }
