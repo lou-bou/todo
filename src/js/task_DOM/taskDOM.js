@@ -1,11 +1,11 @@
 import { PersistanceManager } from '../logic.js';
-import { createTaskContainerDOM, createTaskTitleDOM, createTaskDueDateDOM} from './taskBaseElementsDOM.js';
+import { createTaskContainerDOM, createTaskTitleDOM, createTaskDueDateDOM } from './taskBaseElementsDOM.js';
 import { createTaskEditButtonDOM } from './taskEditButtonDOM.js';
 import { createTaskDeleteButtonDOM } from './taskDeleteButtonDOM.js';
 import { createTaskStatusButtonDOM } from './taskStatusButtonDOM.js';
 import { createTaskExpansionButtonDOM } from './taskExpansionButtonDOM.js';
 
-export { renderTasksDOM, createTaskDOM, editTaskDOM }
+export { renderTasksDOM, createTaskDOM, editTaskDOM };
 
 function renderTasksDOM() {
     const taskObjects = PersistanceManager.retrieveAllTasks();

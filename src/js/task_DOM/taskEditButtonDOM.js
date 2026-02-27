@@ -1,4 +1,6 @@
-export function createTaskEditButtonDOM(taskObject, taskContainer) {
+export { createTaskEditButtonDOM };
+
+function createTaskEditButtonDOM(taskObject, taskContainer) {
     const taskEditButton = document.createElement('button');
 
     taskEditButton.innerText = 'Edit';

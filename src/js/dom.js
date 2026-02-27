@@ -3,8 +3,11 @@
 import { Task, PersistanceManager, Project, defaultProject } from './logic.js';
 import { clearForms, clearTaskForm, handleTaskFormData, clearProjectForm, handleProjectFormData } from './formsHandling.js';
 import { renderTasksDOM, createTaskDOM, editTaskDOM } from './task_DOM/taskDOM.js';
+import { renderProjectsDOM, createProjectDOM, editProjectDOM } from './project_DOM/projectDOM.js';
 
 renderTasksDOM(); // gets called each time the page is loaded to display all tasks in localStorage
+renderProjectsDOM(); // same but for projects
+
 clearForms(); // gets called each time the page is loaded to clear all forms from old values (if user reloaded while a dialog is still open)
 
 // adding a task
@@ -130,6 +133,8 @@ addProjectForm.addEventListener('submit', (e) => {
     
     projectObject.store();
 
+    createProjectDOM(projectObject);
+
     clearProjectForm(addProjectForm);
 
     addProjectDialog.close();
@@ -138,5 +143,40 @@ addProjectForm.addEventListener('submit', (e) => {
 addProjectDialog.addEventListener('keydown', (e) => {
     if (e.key == 'Escape') {
         clearProjectForm(addProjectForm);
+    }
+});
+
+// editing a project
+
+const editProjectDialog = document.querySelector("#edit-project-dialog");
+const editProjectForm = document.querySelector("#edit-project-form");
+
+editProjectForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const projectObjectId = editProjectForm.getAttribute("data-project-id");
+
+    const projectObject = PersistanceManager.retrieveProject(projectObjectId);
+
+    const projectContainer = document.querySelector(`div[data-project-id='${projectObjectId}']`);
+
+    const { projectTitle } = handleProjectFormData(editProjectForm);
+
+    projectObject.title = projectTitle;
+
+    projectObject.store();
+
+    projectContainer.innerHTML = '';
+
+    editProjectDOM(projectObject, projectContainer);
+
+    clearProjectForm(editProjectForm);
+
+    editProjectDialog.close();
+})
+
+editProjectDialog.addEventListener('keydown', (e) => {
+    if (e.key == 'Escape') {
+        clearProjectForm(editProjectForm);
     }
 });

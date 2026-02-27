@@ -3,3 +3,19 @@
     color: var(--dark-color);
     font-size: 150%;   
 }
+
+.project-container {
+    border: 1px white solid;
+    display: flex;
+    margin: 5px;
+    padding: 5px;
+    justify-content: space-between;
+    border-radius: 10px;
+}
+
+.project-sub-container-1, .project-sub-container-2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
