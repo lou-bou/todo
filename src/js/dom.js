@@ -130,5 +130,13 @@ addProjectForm.addEventListener('submit', (e) => {
     
     projectObject.store();
 
+    clearProjectForm(addProjectForm);
+
     addProjectDialog.close();
+});
+
+addProjectDialog.addEventListener('keydown', (e) => {
+    if (e.key == 'Escape') {
+        clearProjectForm(addProjectForm);
+    }
 });
