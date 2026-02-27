@@ -1,7 +1,7 @@
 // this is the entry DOM handling js module but it's also where most global event listeners go
 
 import { Task, PersistanceManager, Project, defaultProject } from './logic.js';
-import { clearForm, clearForms, handleFormData } from './formsHandling.js';
+import { clearForms, clearTaskForm, handleTaskFormData, clearProjectForm, handleProjectFormData } from './formsHandling.js';
 import { renderTasksDOM, createTaskDOM, editTaskDOM } from './task_DOM/taskDOM.js';
 
 renderTasksDOM(); // gets called each time the page is loaded to display all tasks in localStorage
@@ -20,7 +20,7 @@ addTaskButton.addEventListener('click', () => {
 addTaskForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const { taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories } = handleFormData(addTaskForm);
+    const { taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories } = handleTaskFormData(addTaskForm);
 
     // this is logic stuff not supposed to be in dom, be careful with future imports to avoid circular dependencies
     const taskObject = new Task(taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories);
@@ -31,14 +31,14 @@ addTaskForm.addEventListener('submit', (e) => {
 
     createTaskDOM(taskObject);
 
-    clearForm(addTaskForm);
+    clearTaskForm(addTaskForm);
 
     addTaskDialog.close();
 });
 
 addTaskDialog.addEventListener('keydown', (e) => {
     if (e.key == 'Escape') {
-        clearForm(addTaskForm);
+        clearTaskForm(addTaskForm);
     }
 });
 
@@ -60,7 +60,7 @@ editTaskForm.addEventListener('submit', (e) => {
 
     const taskContainer = document.querySelector(`div[data-task-id='${taskObjectId}']`);
 
-    const { taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories } = handleFormData(editTaskForm);
+    const { taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories } = handleTaskFormData(editTaskForm);
 
     taskObject.title = taskTitle;
     taskObject.description = taskDescription;
@@ -74,14 +74,14 @@ editTaskForm.addEventListener('submit', (e) => {
 
     editTaskDOM(taskObject, taskContainer); // reconstruct it
 
-    clearForm(editTaskForm);
+    clearTaskForm(editTaskForm);
 
     editTaskDialog.close();
 });
 
 editTaskDialog.addEventListener('keydown', (e) => {
     if (e.key == 'Escape') {
-        clearForm(editTaskForm);
+        clearTaskForm(editTaskForm);
     }
 });
 
@@ -109,4 +109,26 @@ taskExpansionDialog.addEventListener('keydown', (e) => {
 
         taskExpansionCategories.innerHTML = '';
     }
+});
+
+// adding a project
+
+const addProjectButton = document.querySelector("#add-project-button");
+const addProjectDialog = document.querySelector("#add-project-dialog");
+const addProjectForm = document.querySelector("#add-project-form");
+
+addProjectButton.addEventListener('click', () => {
+    addProjectDialog.showModal();
+});
+
+addProjectForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const { projectTitle } = handleProjectFormData(addProjectForm);
+
+    const projectObject = new Project(projectTitle);
+    
+    projectObject.store();
+
+    addProjectDialog.close();
 });

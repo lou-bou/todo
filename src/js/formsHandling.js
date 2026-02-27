@@ -1,18 +1,23 @@
-export { clearForms, clearForm, handleFormData }
+export { clearForms, clearTaskForm, handleTaskFormData, clearProjectForm, handleProjectFormData }
 
 function clearForms() {
-    const forms = document.querySelectorAll('.task-form');
+    const forms = document.querySelectorAll('form');
     
     forms.forEach((form) => {
-        clearForm(form);
+        if (form.getAttribute("class") == "task-form") {
+            clearTaskForm(form);
+        } else if (form.getAttribute("class") == "project-form") {
+            clearProjectForm(form);
+        }
+        
     });
 }
 
-function clearForm(form) {
+function clearTaskForm(taskForm) {
     // input fields that have a value attribute
-    form.title.value = '';
-    form.dueDate.value = '';
-    form.description.value = '';
+    taskForm.title.value = '';
+    taskForm.dueDate.value = '';
+    taskForm.description.value = '';
 
     // uncheck the priorty radio button that is checked
     const priority = document.querySelector('input[name="priority"]:checked');
@@ -27,8 +32,12 @@ function clearForm(form) {
     }
 }
 
-function handleFormData(form) {
-    let formData = new FormData(form);
+function clearProjectForm(projectForm) {
+    projectForm.title.value = '';
+}
+
+function handleTaskFormData(taskForm) {
+    let formData = new FormData(taskForm);
 
     let taskTitle;
     let taskDescription;
@@ -36,7 +45,7 @@ function handleFormData(form) {
     let taskPriority;
     let taskCategories = [];
 
-    for (var pair of formData.entries()) {
+    for (const pair of formData.entries()) {
         // each pair is an input from the form in this format: input field name - input field value
         switch (pair[0]) {
             case 'title':
@@ -58,4 +67,21 @@ function handleFormData(form) {
     }
 
     return { taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories };
+}
+
+function handleProjectFormData(projectForm) {
+    let formData = new FormData(projectForm);
+
+    let projectTitle;
+
+    for (const pair of formData.entries()) {
+        switch (pair[0]) {
+            case 'title':
+                projectTitle = pair[1];
+                break;
+        }
+    }
+
+    return { projectTitle };
+
 }

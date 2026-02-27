@@ -18,7 +18,7 @@ class Task {
         this.status = 'pending'; // default status
         this.priority = priority;
         this.categories = categories;
-        this.type = 'Task';
+        this.type = 'Task'; // used to identify object type after retrieval from localStorage
     }
 
     switchStatus() {
@@ -44,7 +44,7 @@ class Project {
     id;
     title;
     taskIds = [];
-    type;
+    type; // used to identify object type after retrieval from localStorage
 
     constructor(title) {
         this.id = crypto.randomUUID();
