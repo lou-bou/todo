@@ -1,3 +1,2 @@
 # todo
-
-MC challenge (todo app)
+TOP todo project
