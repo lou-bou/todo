@@ -1,4 +1,4 @@
-export { Task, PersistanceManager, Project, defaultProject }
+export { Task, PersistanceManager, Project, defaultProjectObject };
 
 class Task {
     id;
@@ -9,6 +9,7 @@ class Task {
     priority;
     categories = [];
     type;
+    ownerProjectID = PersistanceManager.currentProjectID; // when a project is switched to, this is automatically changed.
 
     constructor(title, description, dueDate, priority, categories) { // the categories parameter here must be an array
         this.id = crypto.randomUUID();
@@ -90,6 +91,9 @@ class Project {
 }
 
 class PersistanceManager { // utility class for all localStorage related functions
+
+    static currentProjectID = 'default';
+
     static storeTask(taskObject) {
         const stringifiedTask = JSON.stringify(taskObject); // at this point, the task object has lost all of its methods
         localStorage.setItem(taskObject.id, stringifiedTask);
@@ -190,4 +194,4 @@ class PersistanceManager { // utility class for all localStorage related functio
 // if it exists, it is assigned its object
 // if it doesnt, its created
 
-const defaultProject = Project.getDefault();
+const defaultProjectObject = Project.getDefault();

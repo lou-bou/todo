@@ -1,4 +1,6 @@
-import { defaultProject } from "../logic.js";
+import { defaultProjectObject, PersistanceManager } from "../logic.js";
+import { editProjectDOM, editDefaultProjectDOM } from '../project_DOM/projectDOM.js';
+
 export { createTaskDeleteButtonDOM };
 
 function createTaskDeleteButtonDOM(taskObject, taskContainer) {
@@ -17,8 +19,27 @@ function createTaskDeleteButtonDOM(taskObject, taskContainer) {
 
 function createTaskDeleteButtonEventListener(taskObject, taskDeleteButton) {
     taskDeleteButton.addEventListener('click', () => {
-        defaultProject.removeTask(taskObject.id);
-        defaultProject.store();
+        defaultProjectObject.removeTask(taskObject.id);
+        defaultProjectObject.store();
+
+        const defaultProjectContainer = document.querySelector(`div[data-project-id='${defaultProjectObject.id}']`);
+
+        // re-rendering
+        editDefaultProjectDOM(defaultProjectObject, defaultProjectContainer);
+
+        const ownerProjectObject = PersistanceManager.retrieveProject(taskObject.ownerProjectID);
+
+        if (ownerProjectObject.id != 'default') {
+            ownerProjectObject.removeTask(taskObject.id);
+            ownerProjectObject.store();
+
+            const ownerProjectContainer = document.querySelector(`div[data-project-id='${ownerProjectObject.id}']`);
+
+            ownerProjectContainer.innerHTML = '';
+
+            // re-rendering
+            editProjectDOM(ownerProjectObject, ownerProjectContainer);
+        }
 
         taskObject.delete();
 

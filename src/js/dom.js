@@ -1,9 +1,9 @@
 // this is the entry DOM handling js module but it's also where most global event listeners go
 
-import { Task, PersistanceManager, Project, defaultProject } from './logic.js';
+import { Task, PersistanceManager, Project, defaultProjectObject } from './logic.js';
 import { clearForms, clearTaskForm, handleTaskFormData, clearProjectForm, handleProjectFormData } from './formsHandling.js';
 import { renderAllTasksDOM, createTaskDOM, editTaskDOM } from './task_DOM/taskDOM.js';
-import { renderAllProjectsDOM, createProjectDOM, editProjectDOM, renderDefaultProjectDOM } from './project_DOM/projectDOM.js';
+import { renderAllProjectsDOM, createProjectDOM, editProjectDOM, renderDefaultProjectDOM, editDefaultProjectDOM } from './project_DOM/projectDOM.js';
 
 renderAllTasksDOM(); // gets called each time the page is loaded to display all tasks in localStorage
 renderDefaultProjectDOM(); // specifically for default project (which has less DOM elements)
@@ -30,8 +30,33 @@ addTaskForm.addEventListener('submit', (e) => {
     const taskObject = new Task(taskTitle, taskDescription, taskDueDate, taskPriority, taskCategories);
     taskObject.store();
 
-    defaultProject.addTask(taskObject.id);
-    defaultProject.store();
+    /*
+    this entire section here is to:
+    1) store every new task in its respective project + the default project
+    2) re-render the project's title event listener (because the event listener still has the old list of projectObject.taskIds)
+    */
+
+    defaultProjectObject.addTask(taskObject.id);
+    defaultProjectObject.store();
+
+    const defaultProjectContainer = document.querySelector(`div[data-project-id='${defaultProjectObject.id}']`);
+
+    // re-rendering
+    editDefaultProjectDOM(defaultProjectObject, defaultProjectContainer);
+
+    const currentProjectObject = PersistanceManager.retrieveProject(PersistanceManager.currentProjectID);
+
+    if (currentProjectObject.id != "default") { // to not push a task twice to default project
+        currentProjectObject.addTask(taskObject.id);
+        currentProjectObject.store();
+
+        const currentProjectContainer = document.querySelector(`div[data-project-id='${currentProjectObject.id}']`);
+
+        currentProjectContainer.innerHTML = '';
+
+        // re-rendering
+        editProjectDOM(currentProjectObject, currentProjectContainer);
+    }
 
     createTaskDOM(taskObject);
 

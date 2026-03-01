@@ -1,4 +1,5 @@
 import { renderSpecificTasksDOM } from "../task_DOM/taskDOM.js";
+import { PersistanceManager } from "../logic.js";
 
 export { createProjectContainerDOM, createProjectTitleDOM };
 
@@ -31,5 +32,7 @@ function createProjectTitleEventListener(projectObject, projectTitle) {
         tasksContainer.innerHTML = "";
 
         renderSpecificTasksDOM(projectObject.taskIds);
+
+        PersistanceManager.currentProjectID = projectObject.id;
     });
 }
