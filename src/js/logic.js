@@ -136,8 +136,8 @@ class PersistanceManager { // utility class for all localStorage related functio
         localStorage.setItem(projectObject.id, stringifiedProject);
     }
 
-    static retrieveProject(taskProjectId) { // the retrieved task object doesn't have its methods, so this creates a new task and assigns its methods to the retrieved task object
-        const plainProjectObject = localStorage.getItem(taskProjectId);
+    static retrieveProject(ProjectObjectId) { // the retrieved task object doesn't have its methods, so this creates a new task and assigns its methods to the retrieved task object
+        const plainProjectObject = localStorage.getItem(ProjectObjectId);
         const parsedProjectObject = JSON.parse(plainProjectObject);
 
         if (parsedProjectObject.type != 'Project') {

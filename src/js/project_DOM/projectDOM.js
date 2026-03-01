@@ -3,7 +3,7 @@ import { createProjectContainerDOM, createProjectTitleDOM } from "./projectBaseE
 import { createProjectEditButtonDOM } from "./projectEditButtonDOM.js";
 import { createProjectDeleteButtonDOM } from "./projectDeleteButtonDOM.js";
 
-export { renderProjectsDOM, createProjectDOM, editProjectDOM };
+export { renderProjectsDOM, createProjectDOM, editProjectDOM, renderDefaultProjectDOM };
 
 function renderProjectsDOM() {
     const projectObjects = PersistanceManager.retrieveAllProjects();
@@ -13,6 +13,18 @@ function renderProjectsDOM() {
             createProjectDOM(projectObject);
         }
     }
+}
+
+function renderDefaultProjectDOM() {
+    const defaultProjectObject = PersistanceManager.retrieveProject("default");
+
+    const projectsContainer = document.querySelector("#projects-container");
+
+    const defaultProjectContainer = createProjectContainerDOM(defaultProjectObject);
+
+    const defaultProjectTitle = createProjectTitleDOM(defaultProjectObject, defaultProjectContainer);
+
+    projectsContainer.appendChild(defaultProjectContainer);
 }
 
 function createProjectDOMElements(projectObject, projectContainer) {

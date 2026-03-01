@@ -14,8 +14,16 @@ function createProjectTitleDOM(projectObject, projectContainer) {
 
     projectTitle.innerText = projectObject.title;
     projectTitle.setAttribute("class", "project-title");
-
+    
     projectContainer.appendChild(projectTitle);
 
+    createProjectTitleEventListener(projectObject, projectTitle);
+
     return projectTitle;
+}
+
+function createProjectTitleEventListener(projectObject, projectTitle) {
+    projectTitle.addEventListener("click", () => {
+        alert(`${projectObject.title}`);
+    });
 }

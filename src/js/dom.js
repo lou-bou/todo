@@ -3,10 +3,11 @@
 import { Task, PersistanceManager, Project, defaultProject } from './logic.js';
 import { clearForms, clearTaskForm, handleTaskFormData, clearProjectForm, handleProjectFormData } from './formsHandling.js';
 import { renderTasksDOM, createTaskDOM, editTaskDOM } from './task_DOM/taskDOM.js';
-import { renderProjectsDOM, createProjectDOM, editProjectDOM } from './project_DOM/projectDOM.js';
+import { renderProjectsDOM, createProjectDOM, editProjectDOM, renderDefaultProjectDOM } from './project_DOM/projectDOM.js';
 
 renderTasksDOM(); // gets called each time the page is loaded to display all tasks in localStorage
-renderProjectsDOM(); // same but for projects
+renderDefaultProjectDOM(); // specifically for default project (which has less DOM elements)
+renderProjectsDOM(); // same as render tasks but for projects
 
 clearForms(); // gets called each time the page is loaded to clear all forms from old values (if user reloaded while a dialog is still open)
 
