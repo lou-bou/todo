@@ -1,3 +1,3 @@
-# todo-mc
+# todo
 
 MC challenge (todo app)
