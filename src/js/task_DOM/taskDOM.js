@@ -5,10 +5,18 @@ import { createTaskDeleteButtonDOM } from './taskDeleteButtonDOM.js';
 import { createTaskStatusButtonDOM } from './taskStatusButtonDOM.js';
 import { createTaskExpansionButtonDOM } from './taskExpansionButtonDOM.js';
 
-export { renderTasksDOM, createTaskDOM, editTaskDOM };
+export { renderAllTasksDOM, renderSpecificTasksDOM, createTaskDOM, editTaskDOM };
 
-function renderTasksDOM() {
+function renderAllTasksDOM() {
     const taskObjects = PersistanceManager.retrieveAllTasks();
+
+    for (const taskObject of taskObjects) {
+        createTaskDOM(taskObject);
+    }
+}
+
+function renderSpecificTasksDOM(taskIds) {
+    const taskObjects = PersistanceManager.retrieveMultipleTasks(taskIds);
 
     for (const taskObject of taskObjects) {
         createTaskDOM(taskObject);

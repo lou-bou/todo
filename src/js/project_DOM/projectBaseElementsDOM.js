@@ -1,3 +1,5 @@
+import { renderSpecificTasksDOM } from "../task_DOM/taskDOM.js";
+
 export { createProjectContainerDOM, createProjectTitleDOM };
 
 function createProjectContainerDOM(projectObject) {
@@ -24,6 +26,10 @@ function createProjectTitleDOM(projectObject, projectContainer) {
 
 function createProjectTitleEventListener(projectObject, projectTitle) {
     projectTitle.addEventListener("click", () => {
-        alert(`${projectObject.title}`);
+        const tasksContainer = document.querySelector('#tasks-container');
+
+        tasksContainer.innerHTML = "";
+
+        renderSpecificTasksDOM(projectObject.taskIds);
     });
 }

@@ -109,6 +109,21 @@ class PersistanceManager { // utility class for all localStorage related functio
         return reconstructedTaskObject;
     }
 
+    static retrieveMultipleTasks(taskIds) {
+        let taskObjects = [];
+        let taskObject;
+
+        for (const taskId of taskIds) {
+            taskObject = this.retrieveTask(taskId);
+            
+            if (taskObject) {
+                taskObjects.push(taskObject);
+            }
+        }
+
+        return taskObjects;
+    }
+
     static retrieveAllTasks() {
         let taskObjects = [];
         let taskObject; // to use in iteration for each task in the list

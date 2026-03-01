@@ -3,9 +3,9 @@ import { createProjectContainerDOM, createProjectTitleDOM } from "./projectBaseE
 import { createProjectEditButtonDOM } from "./projectEditButtonDOM.js";
 import { createProjectDeleteButtonDOM } from "./projectDeleteButtonDOM.js";
 
-export { renderProjectsDOM, createProjectDOM, editProjectDOM, renderDefaultProjectDOM };
+export { renderAllProjectsDOM, createProjectDOM, editProjectDOM, renderDefaultProjectDOM };
 
-function renderProjectsDOM() {
+function renderAllProjectsDOM() {
     const projectObjects = PersistanceManager.retrieveAllProjects();
 
     for (const projectObject of projectObjects) {
