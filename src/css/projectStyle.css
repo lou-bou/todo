@@ -23,3 +23,7 @@
 .project-title {
     cursor: pointer;
 }
+
+.project-container[data-current='true'] {
+    border-color: lightgreen;
+}

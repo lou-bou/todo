@@ -22,6 +22,8 @@ function renderDefaultProjectDOM() {
 
     const defaultProjectContainer = createProjectContainerDOM(defaultProjectObject);
 
+    defaultProjectContainer.setAttribute('data-current', 'true');
+
     const defaultProjectTitle = createProjectTitleDOM(defaultProjectObject, defaultProjectContainer);
 
     projectsContainer.appendChild(defaultProjectContainer);
